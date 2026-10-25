@@ -1,6 +1,6 @@
 /**
  * Luxury Boarding Pass & Spa Experience
- * Touch-First Draggable Tear Gesture • Mystery 1/6 Theme • Authentic YouTube Spa Music
+ * Theme: Delicate Rose & White • For: אשתי המושלמת 👑 • 1 מתוך 6
  */
 
 (function () {
@@ -14,12 +14,12 @@
   let isTimerRunning = false;
   let isTorn = false;
 
-  // --- Dynamic Mystery & Romance Messages ---
+  // --- Dynamic Mystery & Romance Messages for "אשתי המושלמת" ---
   const ROMANTIC_MESSAGES = [
     "תשכבי בנוח, תעצמי עיניים ותרפי את הגוף... פשוט תנשמי עמוק.",
-    "בלי לחשוב על כלום, בלי שאלות... כל הרגע הזה הוא רק בשבילך 🌸",
-    "מגיע לך את כל השקט שבעולם... תני לי לדאוג לכל השאר.",
-    "ניצן, את האישה הכי מיוחדת בעולם... תרגישי כמה את אהובה ומוגנת ❤️",
+    "אשתי המושלמת, כל הרגע הזה נועד רק כדי לפנק אותך 🌸",
+    "בלי לחשוב על כלום, בלי שאלות... כל השקט הזה הוא רק שלך.",
+    "אשתי, את הדבר הכי יקר לי בעולם... תרגישי כמה את אהובה ומוגנת ❤️",
     "תשקעי לתוך הרוגע והחום, כל נשימה מעמיקה את השלווה שלך ✨",
     "חלק 1 מתוך 6... וזו רק ההתחלה של מה שמחכה לך 🤫",
     "פשוט תהיי כאן ועכשיו, בתוך השקט והמגע המרגיע.",
@@ -45,14 +45,15 @@
   const playPauseIcon = document.getElementById('play-pause-icon');
   const playPauseLabel = document.getElementById('play-pause-label');
   const toggleMusicBtn = document.getElementById('toggle-music-btn');
+  const musicBtnIcon = document.getElementById('music-btn-icon');
   const musicToggleLabel = document.getElementById('music-toggle-label');
   const spaStatusText = document.getElementById('spa-status-text');
   const demoFastForwardBtn = document.getElementById('demo-fast-forward-btn');
   const addFiveMinBtn = document.getElementById('add-five-min-btn');
 
-  // YouTube Spa Player Elements
-  const ytSpaPlayer = document.getElementById('yt-spa-player');
-  let isMusicActive = true;
+  // Local HTML5 Spa Audio Player
+  const spaAudioPlayer = document.getElementById('spa-audio-player');
+  let isMusicPlaying = false;
 
   // Finale Elements
   const finaleModal = document.getElementById('finale-modal');
@@ -67,11 +68,11 @@
   }
 
   // ==========================================================================
-  // 1. AMBIENT BACKGROUND PARTICLES CANVAS
+  // 1. AMBIENT BACKGROUND PARTICLES CANVAS (SOFT ROSE PETALS & SPARKLES)
   // ==========================================================================
   const ambientCanvas = document.getElementById('ambient-canvas');
   let canvasCtx = null;
-  let particles = [];
+  let petals = [];
 
   function initAmbientCanvas() {
     if (!ambientCanvas) return;
@@ -79,18 +80,19 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas, { passive: true });
 
-    particles = [];
-    const count = window.innerWidth < 450 ? 45 : 70;
+    petals = [];
+    const count = window.innerWidth < 450 ? 40 : 65;
     for (let i = 0; i < count; i++) {
-      particles.push({
+      petals.push({
         x: Math.random() * ambientCanvas.width,
         y: Math.random() * ambientCanvas.height,
-        size: Math.random() * 2.2 + 0.6,
-        alpha: Math.random() * 0.7 + 0.2,
+        size: Math.random() * 3.5 + 1.2,
+        alpha: Math.random() * 0.6 + 0.25,
         speedY: -(Math.random() * 0.35 + 0.1),
-        speedX: (Math.random() - 0.5) * 0.2,
-        pulseSpeed: Math.random() * 0.02 + 0.01,
-        color: Math.random() > 0.4 ? 'rgba(212, 175, 55, ' : 'rgba(229, 152, 155, '
+        speedX: (Math.random() - 0.5) * 0.25,
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.02,
+        color: Math.random() > 0.4 ? 'rgba(235, 128, 155, ' : 'rgba(255, 192, 203, '
       });
     }
 
@@ -107,73 +109,73 @@
     if (!canvasCtx) return;
     canvasCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
 
-    particles.forEach(p => {
+    petals.forEach(p => {
       p.y += p.speedY;
       p.x += p.speedX;
-      p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.015;
-      const clampedAlpha = Math.max(0.1, Math.min(0.85, p.alpha));
+      p.rot += p.rotSpeed;
 
-      if (p.y < -10) p.y = ambientCanvas.height + 10;
-      if (p.x < -10) p.x = ambientCanvas.width + 10;
-      if (p.x > ambientCanvas.width + 10) p.x = -10;
+      if (p.y < -15) p.y = ambientCanvas.height + 15;
+      if (p.x < -15) p.x = ambientCanvas.width + 15;
+      if (p.x > ambientCanvas.width + 15) p.x = -15;
 
+      canvasCtx.save();
+      canvasCtx.translate(p.x, p.y);
+      canvasCtx.rotate(p.rot);
       canvasCtx.beginPath();
-      canvasCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      canvasCtx.fillStyle = p.color + clampedAlpha + ')';
-      canvasCtx.shadowBlur = p.size * 3;
-      canvasCtx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+      // Draw gentle petal ellipse
+      canvasCtx.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
+      canvasCtx.fillStyle = p.color + p.alpha + ')';
       canvasCtx.fill();
+      canvasCtx.restore();
     });
 
     requestAnimationFrame(renderParticles);
   }
 
   // ==========================================================================
-  // 2. YOUTUBE SPA MUSIC CONTROLLER
+  // 2. LOCAL SPA AUDIO CONTROLLER (GENUINE CALMING ACOUSTIC MUSIC)
   // ==========================================================================
 
-  function sendYtCommand(func, args = '') {
-    if (!ytSpaPlayer || !ytSpaPlayer.contentWindow) return;
-    ytSpaPlayer.contentWindow.postMessage(JSON.stringify({
-      event: 'command',
-      func: func,
-      args: args
-    }), '*');
+  function playSpaAudio() {
+    if (!spaAudioPlayer) return;
+    spaAudioPlayer.play().then(() => {
+      isMusicPlaying = true;
+      updateMusicUI(true);
+    }).catch(err => {
+      console.log('Audio autoplay awaiting interaction:', err);
+    });
   }
 
-  function playSpaMusic() {
-    isMusicActive = true;
-    sendYtCommand('playVideo');
-    updateMusicUI(true);
-  }
-
-  function pauseSpaMusic() {
-    isMusicActive = false;
-    sendYtCommand('pauseVideo');
+  function pauseSpaAudio() {
+    if (!spaAudioPlayer) return;
+    spaAudioPlayer.pause();
+    isMusicPlaying = false;
     updateMusicUI(false);
   }
 
   function toggleMusic() {
-    if (isMusicActive) {
-      pauseSpaMusic();
+    if (isMusicPlaying) {
+      pauseSpaAudio();
     } else {
-      playSpaMusic();
+      playSpaAudio();
     }
   }
 
   function updateMusicUI(isPlaying) {
-    if (!toggleMusicBtn || !musicToggleLabel) return;
+    if (!toggleMusicBtn || !musicToggleLabel || !musicBtnIcon) return;
     if (isPlaying) {
       toggleMusicBtn.classList.add('active');
+      musicBtnIcon.textContent = '🔊';
       musicToggleLabel.textContent = 'מוזיקה פעילה';
     } else {
       toggleMusicBtn.classList.remove('active');
+      musicBtnIcon.textContent = '🔈';
       musicToggleLabel.textContent = 'מוזיקה מושתקת';
     }
   }
 
   // ==========================================================================
-  // 3. INTERACTIVE SWIPE-TO-TEAR GESTURE
+  // 3. PROMINENT SWIPE-TO-TEAR GESTURE
   // ==========================================================================
 
   let isDragging = false;
@@ -196,7 +198,7 @@
       isDragging = true;
       const rect = tearSliderContainer.getBoundingClientRect();
       const handleRect = tearHandle.getBoundingClientRect();
-      maxDragDistance = rect.width - handleRect.width - 4;
+      maxDragDistance = rect.width - handleRect.width - 6;
 
       startX = getPointerX(e);
       tearHandle.style.transition = 'none';
@@ -211,6 +213,7 @@
       if (!isDragging || isTorn) return;
 
       const currentX = getPointerX(e);
+      // In RTL, moving left increases drag
       let dragDelta = startX - currentX;
       if (dragDelta < 0) dragDelta = 0;
       if (dragDelta > maxDragDistance) dragDelta = maxDragDistance;
@@ -218,14 +221,14 @@
       currentDragX = dragDelta;
       const progressFraction = currentDragX / maxDragDistance;
 
-      tearHandle.style.transform = `translateX(-${currentDragX}px) scale(1.06)`;
+      tearHandle.style.transform = `translateX(-${currentDragX}px) scale(1.08)`;
 
       if (tearRipFill) {
         tearRipFill.style.width = `${(progressFraction * 100).toFixed(1)}%`;
       }
 
       if (tearInstruction) {
-        tearInstruction.style.opacity = Math.max(0, 1 - progressFraction * 1.5);
+        tearInstruction.style.opacity = Math.max(0, 1 - progressFraction * 1.6);
       }
 
       if (window.spaAudio && progressFraction > 0.05) {
@@ -243,9 +246,11 @@
 
       const progressFraction = currentDragX / maxDragDistance;
 
-      if (progressFraction >= 0.75) {
+      // Threshold: if dragged > 70%, trigger tear completion!
+      if (progressFraction >= 0.70) {
         completeTearAction();
       } else {
+        // Reset back smoothly
         tearHandle.style.transition = 'transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
         tearHandle.style.transform = 'translateX(0px)';
         if (tearRipFill) {
@@ -268,13 +273,20 @@
     tearSliderContainer.addEventListener('mousedown', onDragStart);
     window.addEventListener('mousemove', onDragMove);
     window.addEventListener('mouseup', onDragEnd);
+
+    // Also support tap on the handle to complete tear smoothly
+    tearHandle.addEventListener('click', () => {
+      if (!isTorn && currentDragX < 20) {
+        completeTearAction();
+      }
+    });
   }
 
   function completeTearAction() {
     if (isTorn) return;
     isTorn = true;
 
-    tearHandle.style.transition = 'transform 0.15s ease';
+    tearHandle.style.transition = 'transform 0.2s ease';
     tearHandle.style.transform = `translateX(-${maxDragDistance}px)`;
     if (tearRipFill) {
       tearRipFill.style.width = '100%';
@@ -299,13 +311,13 @@
 
   function fireConfetti() {
     if (typeof confetti === 'function') {
-      const goldPalette = ['#D4AF37', '#FFF6C7', '#AA771C', '#E5989B', '#FFFFFF'];
+      const rosePalette = ['#FFCCD5', '#FFB3C1', '#FF758F', '#C94A75', '#FFFFFF', '#DDA7A5'];
 
       confetti({
         particleCount: 75,
         spread: 85,
         origin: { y: 0.55 },
-        colors: goldPalette,
+        colors: rosePalette,
         startVelocity: 38
       });
 
@@ -315,14 +327,14 @@
           angle: 60,
           spread: 60,
           origin: { x: 0, y: 0.65 },
-          colors: goldPalette
+          colors: rosePalette
         });
         confetti({
           particleCount: 45,
           angle: 120,
           spread: 60,
           origin: { x: 1, y: 0.65 },
-          colors: goldPalette
+          colors: rosePalette
         });
       }, 250);
     }
@@ -341,8 +353,8 @@
         spaView.classList.add('active');
       }, 40);
 
-      // Start YouTube relaxing spa music
-      playSpaMusic();
+      // Start relaxing local acoustic spa music
+      playSpaAudio();
 
       // Start 25:00 countdown timer automatically
       startTimer();
@@ -398,10 +410,10 @@
   function toggleTimer() {
     if (isTimerRunning) {
       pauseTimer();
-      pauseSpaMusic();
+      pauseSpaAudio();
     } else {
       startTimer();
-      playSpaMusic();
+      playSpaAudio();
     }
   }
 
@@ -410,13 +422,13 @@
     if (running) {
       playPauseIcon.textContent = '⏸️';
       playPauseLabel.textContent = 'השהה פינוק';
-      spaStatusText.textContent = 'חלק 1/6 בעיצומו • עיסוי מלכותי';
-      spaStatusText.parentElement.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+      spaStatusText.textContent = 'חלק 1/6 בעיצומו • עיסוי זוגי';
+      spaStatusText.parentElement.style.borderColor = 'var(--rose-gold-mid)';
     } else {
       playPauseIcon.textContent = '▶️';
       playPauseLabel.textContent = 'המשך פינוק';
       spaStatusText.textContent = 'הפינוק מושהה';
-      spaStatusText.parentElement.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+      spaStatusText.parentElement.style.borderColor = 'rgba(217, 142, 160, 0.45)';
     }
   }
 
@@ -449,7 +461,7 @@
 
   function finishSpaSession() {
     pauseTimer();
-    pauseSpaMusic();
+    pauseSpaAudio();
 
     if (window.spaAudio) {
       window.spaAudio.playTimerCompleteSound();
@@ -458,7 +470,7 @@
     if (typeof confetti === 'function') {
       const duration = 4000;
       const animationEnd = Date.now() + duration;
-      const colors = ['#D4AF37', '#FFF6C7', '#FF758F', '#FFFFFF', '#E5989B'];
+      const colors = ['#FFCCD5', '#FFB3C1', '#FF758F', '#C94A75', '#FFFFFF', '#DDA7A5'];
 
       (function frame() {
         confetti({
@@ -494,7 +506,7 @@
   // ==========================================================================
 
   function setupEventListeners() {
-    // 1. Interactive Tear Slider Gesture
+    // 1. Prominent Tear Gesture
     initTearGesture();
 
     // 2. Play / Pause Timer
@@ -502,39 +514,24 @@
       toggleTimerBtn.addEventListener('click', toggleTimer);
     }
 
-    // 3. YouTube Music Toggle
+    // 3. Local Music Toggle Button
     if (toggleMusicBtn) {
       toggleMusicBtn.addEventListener('click', toggleMusic);
     }
 
-    // 4. Quick YouTube Spa Track Selector Buttons
-    const trackBtns = document.querySelectorAll('.track-btn');
-    trackBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        trackBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const vid = btn.getAttribute('data-vid');
-        if (ytSpaPlayer && vid) {
-          ytSpaPlayer.src = `https://www.youtube-nocookie.com/embed/${vid}?enablejsapi=1&autoplay=1&playsinline=1&rel=0&modestbranding=1`;
-          isMusicActive = true;
-          updateMusicUI(true);
-        }
-      });
-    });
-
-    // 5. Demo Fast Forward (10 seconds left)
+    // 4. Demo Fast Forward (10 seconds left)
     if (demoFastForwardBtn) {
       demoFastForwardBtn.addEventListener('click', () => {
         remainingSec = 10;
         updateTimerDisplay();
         if (!isTimerRunning) {
           startTimer();
-          playSpaMusic();
+          playSpaAudio();
         }
       });
     }
 
-    // 6. Add 5 Minutes
+    // 5. Add 5 Minutes
     if (addFiveMinBtn) {
       addFiveMinBtn.addEventListener('click', () => {
         remainingSec += 300;
@@ -543,7 +540,7 @@
       });
     }
 
-    // 7. Restart Spa / Extra 5 minutes from Finale
+    // 6. Restart Spa / Extra 5 minutes from Finale
     if (restartSpaBtn) {
       restartSpaBtn.addEventListener('click', () => {
         if (finaleModal) finaleModal.classList.remove('active');
@@ -551,7 +548,7 @@
         totalDurationSec = 5 * 60;
         updateTimerDisplay();
         startTimer();
-        playSpaMusic();
+        playSpaAudio();
       });
     }
 

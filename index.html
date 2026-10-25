@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>כרטיס עלייה ליום אהבה ופינוק • 1/6 👑</title>
+  <title>כרטיס פינוק מלכותי • 1 מתוך 6 🌸</title>
   
   <!-- iOS Safari Web App Meta Tags & Apple Touch Icon -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="כרטיס עלייה 1/6">
-  <meta name="theme-color" content="#070c1e">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="כרטיס פינוק">
+  <meta name="theme-color" content="#FFF0F3">
   <meta name="format-detection" content="telephone=no">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23080d1f%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>🎟️</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23080d1f%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>🎟️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FCE4EC%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>🌸</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FCE4EC%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>🌸</text></svg>">
 
-  <!-- Google Fonts: Assistant, Frank Ruhl Libre & Cinzel -->
+  <!-- Google Fonts: Assistant, Frank Ruhl Libre & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&family=Frank+Ruhl+Libre:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -25,15 +25,19 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <!-- Ambient Particle & Star Background -->
+<body class="theme-rose-white">
+  
+  <!-- Local Soothing Audio Asset -->
+  <audio id="spa-audio-player" loop preload="auto" src="spa-music.mp3"></audio>
+
+  <!-- Ambient Floating Petals & Light Shimmer Canvas -->
   <canvas id="ambient-canvas"></canvas>
 
   <div class="app-container">
     
-    <!-- Top Mystery Badge (No mention of anniversary!) -->
+    <!-- Top Mystery Badge -->
     <header class="top-nav" id="top-nav">
-      <div class="mystery-badge">
+      <div class="rose-badge">
         <span class="sparkle">✦</span>
         <span class="badge-text">פרויקט פינוק בהפתעה • חלק 1 מתוך 6</span>
         <span class="sparkle">✦</span>
@@ -44,7 +48,7 @@
     <main class="main-content">
 
       <!-- ============================================== -->
-      <!-- STEP 1: THE BOARDING PASS & DRAGGABLE TEAR STUB -->
+      <!-- STEP 1: THE DELICATE ROSE-WHITE BOARDING PASS  -->
       <!-- ============================================== -->
       <section id="coupon-view" class="view-screen active">
         
@@ -54,28 +58,28 @@
 
         <div class="ticket-wrapper" id="ticket-wrapper">
           
-          <!-- Outer Boarding Pass Card -->
+          <!-- Outer Boarding Pass Card in Soft Rose & White -->
           <div class="boarding-pass" id="boarding-pass">
             
-            <!-- Hologram Light Sheen -->
+            <!-- Soft Pearlescent Light Shimmer -->
             <div class="card-shimmer"></div>
 
-            <!-- MAIN PASS BODY (Top section in mobile) -->
+            <!-- MAIN PASS BODY (Top Section) -->
             <div class="pass-main" id="pass-main">
               
-              <!-- Double Ornate Border & Filigree Corners (Matching the image) -->
+              <!-- Double Ornate Border with Rose-Gold Filigree & Hearts -->
               <div class="pass-inner-border">
                 <div class="ornament top-right"></div>
                 <div class="ornament top-left"></div>
-                <div class="ornament-heart top-center">💛</div>
+                <div class="ornament-heart top-center">🌸</div>
 
                 <!-- Main Pass Header -->
                 <div class="pass-header">
-                  <h1 class="main-title">כרטיס עלייה ליום אהבה ופינוק</h1>
+                  <h1 class="main-title">כרטיס פינוק מלכותי</h1>
                   <div class="subtitle-row">
-                    <span class="heart-accent">💛</span>
+                    <span class="heart-accent">💖</span>
                     <span class="mystery-sub">חלק 1 מתוך 6 • בלי שאלות, פשוט תתמסרי</span>
-                    <span class="heart-accent">💛</span>
+                    <span class="heart-accent">💖</span>
                   </div>
                 </div>
 
@@ -85,66 +89,66 @@
                 <div class="passenger-section">
                   <div class="passenger-row">
                     <span class="label">עבור:</span>
-                    <span class="value gold-highlight">אברהם נתן וניצן</span>
+                    <span class="value rose-highlight">אשתי המושלמת 👑</span>
                   </div>
                 </div>
 
                 <div class="pass-divider-thin"></div>
 
-                <!-- Event Title & Description -->
+                <!-- Event Title & Clean Massage Description -->
                 <div class="event-details">
-                  <h2 class="event-title">יום ספא ופינוק רומנטי</h2>
+                  <h2 class="event-title">עיסוי זוגי מפנק ומלכותי</h2>
                   <p class="event-desc">
-                    עיסוי זוגי, שימוש במתקני הספא, ארוחה מפנקת וזמן איכות יחד
+                    25 דקות מלאות של שקט, שמנים חמים, רוגע ומגע קסום
                   </p>
                 </div>
 
                 <!-- Meta Footer Row (Date / Location / Class) -->
                 <div class="meta-details-box">
                   <div class="meta-row">
-                    <span class="meta-item"><strong>תאריך:</strong> יום פינוק מיוחד</span>
+                    <span class="meta-item"><strong>תאריך:</strong> עכשיו ברגע זה</span>
                     <span class="meta-sep">|</span>
-                    <span class="meta-item"><strong>מיקום:</strong> ספא יוקרתי</span>
+                    <span class="meta-item"><strong>מיקום:</strong> ספא ביתי מפנק</span>
                   </div>
                   <div class="meta-row highlight-class">
-                    <strong>מחלקה:</strong> מחלקת אהבה ראשונה (1/6)
+                    <strong>מחלקה:</strong> מחלקת VIP ראשונה (1/6)
                   </div>
                 </div>
 
                 <!-- Barcode Graphic inside main pass -->
                 <div class="main-pass-barcode">
                   <div class="barcode-graphic-vertical"></div>
-                  <span class="barcode-num">12344566780999</span>
+                  <span class="barcode-num">VIP-PERFECT-WIFE-01</span>
                 </div>
 
                 <div class="ornament bottom-right"></div>
                 <div class="ornament bottom-left"></div>
-                <div class="ornament-heart bottom-center">💛</div>
+                <div class="ornament-heart bottom-center">🌸</div>
               </div><!-- /pass-inner-border -->
 
             </div><!-- /pass-main -->
 
             <!-- ============================================== -->
-            <!-- PERFORATED TEAR TRACK (SWIPE TO RIP)          -->
+            <!-- PROMINENT PERFORATED TEAR TRACK (SWIPE TO RIP) -->
             <!-- ============================================== -->
             <div class="perforated-track" id="perforated-track">
               <div class="notch notch-right"></div>
               
-              <!-- The Draggable Tear Slider Area -->
+              <!-- Draggable Tear Slider Area -->
               <div class="tear-slider-container" id="tear-slider-container">
                 <div class="tear-rip-fill" id="tear-rip-fill"></div>
                 <div class="tear-dashed-line"></div>
                 
-                <!-- Prompt Label (Fades out when swiping) -->
+                <!-- Clear Instruction with glowing arrow -->
                 <div class="tear-instruction" id="tear-instruction">
-                  <span class="instruction-text">העבירי אצבע לקריעת הספח</span>
                   <span class="instruction-arrow">⟵</span>
+                  <span class="instruction-text">גררי את המספריים לקריעת השובר</span>
                 </div>
 
-                <!-- The Draggable Scissors Handle -->
-                <div class="tear-handle" id="tear-handle" role="slider" aria-label="גררי לקריעת הספח">
+                <!-- Prominent Glowing Scissors Handle -->
+                <div class="tear-handle" id="tear-handle" role="slider" aria-label="גררי את המספריים לקריעת השובר">
                   <div class="scissors-icon">✂️</div>
-                  <div class="handle-glow"></div>
+                  <div class="handle-pulse-ring"></div>
                 </div>
               </div>
 
@@ -168,20 +172,20 @@
 
                 <div class="stub-heart-divider">
                   <span class="stub-line"></span>
-                  <span class="stub-heart">💛</span>
+                  <span class="stub-heart">💖</span>
                   <span class="stub-line"></span>
                 </div>
 
-                <p class="stub-subtitle">כרטיס עלייה ליום אהבה</p>
+                <p class="stub-subtitle">כרטיס פינוק אישי לאשתי</p>
 
-                <!-- Stub Barcode matching user reference image -->
+                <!-- Stub Barcode -->
                 <div class="stub-barcode-box">
                   <div class="barcode-graphic-horizontal"></div>
                   <span class="barcode-digits">12344566780999</span>
                 </div>
 
                 <div class="stub-tear-hint">
-                  <span>✂️ קרעי את הספח כדי להתחיל מיד</span>
+                  <span>✂️ גזרי את הספח כדי להתחיל את הפינוק מיד</span>
                 </div>
               </div>
             </div><!-- /pass-stub -->
@@ -198,7 +202,7 @@
       <!-- ============================================== -->
       <section id="spa-view" class="view-screen">
         
-        <!-- Soft breathing background aura -->
+        <!-- Soft breathing rose background aura -->
         <div class="spa-breathing-aura"></div>
         <div class="floating-petals" id="floating-petals"></div>
 
@@ -208,7 +212,7 @@
           <div class="spa-header">
             <div class="spa-tag">
               <span class="live-dot"></span>
-              <span id="spa-status-text">חלק 1/6 בעיצומו • עיסוי מלכותי</span>
+              <span id="spa-status-text">חלק 1/6 בעיצומו • עיסוי זוגי</span>
             </div>
             <h2 class="spa-title">מרחב רוגע, מגע ושלווה</h2>
           </div>
@@ -218,10 +222,10 @@
             <div class="circle-timer-wrap">
               <svg class="timer-svg" viewBox="0 0 320 320">
                 <defs>
-                  <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FFF2A3"/>
-                    <stop offset="50%" stop-color="#D4AF37"/>
-                    <stop offset="100%" stop-color="#AA771C"/>
+                  <linearGradient id="rose-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFCCD5"/>
+                    <stop offset="50%" stop-color="#E5989B"/>
+                    <stop offset="100%" stop-color="#B76E79"/>
                   </linearGradient>
                   <filter id="timer-glow" x="-20%" y="-20%" width="140%" height="140%">
                     <feGaussianBlur stdDeviation="6" result="blur" />
@@ -260,30 +264,17 @@
             <div class="quote-sign left">”</div>
           </div>
 
-          <!-- YouTube Relaxing Spa Player -->
-          <div class="youtube-player-card">
-            <div class="youtube-card-header">
-              <div class="yt-header-right">
-                <span class="yt-icon">🎵</span>
-                <span class="yt-title">מוזיקת ספא ושלווה</span>
+          <!-- Clean Local Spa Music Card (No YouTube!) -->
+          <div class="local-music-card">
+            <div class="music-card-info">
+              <span class="music-note-icon">🎵</span>
+              <div class="music-meta">
+                <strong class="music-name">מנגינת ספא ושלווה מרגיעה</strong>
+                <span class="music-artist">צלילים אקוסטיים עדינים</span>
               </div>
-              <span class="yt-badge">YouTube HD</span>
             </div>
-            <div class="youtube-iframe-wrapper">
-              <iframe 
-                id="yt-spa-player" 
-                src="https://www.youtube-nocookie.com/embed/Fj8uWBvrmvQ?enablejsapi=1&playsinline=1&rel=0&modestbranding=1" 
-                title="מוזיקת ספא ומסאז' מרגיעה"
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
-            </div>
-            <!-- Quick Track Buttons -->
-            <div class="spa-track-selector">
-              <button class="track-btn active" data-vid="Fj8uWBvrmvQ">🌿 ספא ומסאז'</button>
-              <button class="track-btn" data-vid="MCkTebktHVc">🎹 פסנתר שלווה</button>
-              <button class="track-btn" data-vid="1ZYbU8csArI">🪷 קערות ומים</button>
+            <div class="equalizer-bars" id="music-bars">
+              <span></span><span></span><span></span><span></span>
             </div>
           </div>
 
@@ -298,10 +289,8 @@
 
             <!-- Relaxing Spa Ambient Music Toggle -->
             <button id="toggle-music-btn" class="control-btn music-control active" aria-label="מוזיקת ספא">
-              <div class="equalizer-bars" id="music-bars">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <span class="control-label" id="music-toggle-label">מוזיקה פעילה</span>
+              <span id="music-btn-icon" class="control-icon">🔊</span>
+              <span class="control-label" id="music-toggle-label">מוזיקה מופעלת</span>
             </button>
 
           </div>
@@ -326,7 +315,7 @@
       <!-- ============================================== -->
       <div id="finale-modal" class="modal-backdrop finale-theme">
         <div class="modal-card finale-card">
-          <div class="modal-glow gold-flare"></div>
+          <div class="modal-glow rose-flare"></div>
           <div class="heart-crown">
             <span class="large-heart">💖</span>
           </div>
@@ -342,7 +331,7 @@
           </div>
 
           <div class="finale-buttons">
-            <button id="restart-spa-btn" class="luxury-gold-btn mini">
+            <button id="restart-spa-btn" class="rose-gold-btn mini">
               <span>רוצה עוד 5 דקות של מסאז'? 💆‍♀️</span>
             </button>
             <button id="close-finale-btn" class="secondary-btn">
@@ -356,7 +345,7 @@
 
     <!-- Bottom App Footer -->
     <footer class="app-footer">
-      <span class="footer-heart">✨ פרויקט פינוק מיוחד עבור ניצן 👑 • 1 מתוך 6 ✨</span>
+      <span class="footer-heart">✨ פרויקט פינוק מיוחד עבור אשתי המושלמת 👑 • 1 מתוך 6 ✨</span>
     </footer>
 
   </div><!-- /app-container -->
