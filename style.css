@@ -1,0 +1,1268 @@
+/* ==========================================================================
+   LUXURY ANNIVERSARY VIP COUPON & SPA APP - STYLESHEET
+   Mobile-First • Safari/iOS Optimized • Hebrew RTL • Deep Midnight & 24K Gold
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-dark: #070913;
+  --bg-gradient-top: #0a0d1d;
+  --bg-gradient-bottom: #05070e;
+  
+  /* Rich Gold Accents */
+  --gold-pure: #d4af37;
+  --gold-light: #fff2a3;
+  --gold-mid: #e6ca65;
+  --gold-dark: #aa771c;
+  --gold-deep: #6f4e13;
+  
+  /* Rose Gold & Romantic Hues */
+  --rose-gold: #e5989b;
+  --rose-light: #ffb4a2;
+  --rose-glow: rgba(229, 152, 155, 0.35);
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --gold-glow-subtle: rgba(212, 175, 55, 0.12);
+
+  /* Glassmorphism & Cards */
+  --card-bg: rgba(16, 22, 40, 0.78);
+  --card-bg-solid: #0d1326;
+  --card-border: rgba(212, 175, 55, 0.32);
+  --glass-surface: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-gold: #ecd279;
+  
+  /* Fonts */
+  --font-serif: 'Frank Ruhl Libre', serif;
+  --font-sans: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-cinzel: 'Cinzel', serif;
+
+  /* Sizing & Safe Areas */
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Base Reset & iOS viewport hardening */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  direction: rtl;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-height: 100dvh;
+  position: relative;
+  background: radial-gradient(circle at 50% 15%, #18203d 0%, #090c1b 50%, #04060d 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ambient Canvas Background (Stardust & Floating Shimmer) */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+}
+
+/* App Shell Layout */
+.app-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--safe-top) + 8px) 16px calc(var(--safe-bottom) + 12px) 16px;
+}
+
+/* Top Branding Bar */
+.top-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  z-index: 2;
+}
+
+.luxury-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 999px;
+  padding: 6px 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.luxury-badge .sparkle {
+  color: var(--gold-mid);
+  font-size: 0.8rem;
+  animation: sparkleTwinkle 2.5s ease-in-out infinite alternate;
+}
+
+.luxury-badge .badge-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--gold-light);
+}
+
+@keyframes sparkleTwinkle {
+  0% { opacity: 0.4; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.15) rotate(15deg); }
+}
+
+/* Main Content Views */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.view-screen {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.view-screen.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Glow Background Orbs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.22), transparent 70%);
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: orbFloat 8s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(229, 152, 155, 0.18), transparent 70%);
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes orbFloat {
+  0% { transform: translate(-50%, -10px) scale(0.95); }
+  100% { transform: translate(-50%, 15px) scale(1.08); }
+}
+
+/* ==========================================================================
+   STEP 1: THE VIP LUXURY GIFT CARD / COUPON
+   ========================================================================== */
+
+.coupon-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 370px;
+  perspective: 1200px;
+  z-index: 2;
+  margin: auto 0;
+}
+
+.luxury-card {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(165deg, rgba(19, 26, 49, 0.96) 0%, rgba(10, 14, 28, 0.98) 100%);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 242, 163, 0.35);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hologram Shimmer Sheen */
+.card-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 242, 163, 0.12) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  animation: cardSheenSweep 6s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes cardSheenSweep {
+  0%, 65% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* Card Section Shared */
+.card-section {
+  position: relative;
+  padding: 24px 22px;
+  background: transparent;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, filter 0.7s ease;
+}
+
+.card-top {
+  padding-bottom: 20px;
+}
+
+.card-bottom {
+  padding-top: 20px;
+  background: rgba(6, 9, 18, 0.55);
+}
+
+/* Corner Ornaments (Luxury Filigree) */
+.corner-ornament {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--gold-mid);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.corner-ornament.top-right {
+  top: 14px;
+  right: 14px;
+  border-top: 2px solid var(--gold-mid);
+  border-right: 2px solid var(--gold-mid);
+}
+
+.corner-ornament.top-left {
+  top: 14px;
+  left: 14px;
+  border-top: 2px solid var(--gold-mid);
+  border-left: 2px solid var(--gold-mid);
+}
+
+.corner-ornament.bottom-right {
+  bottom: 14px;
+  right: 14px;
+  border-bottom: 2px solid var(--gold-mid);
+  border-right: 2px solid var(--gold-mid);
+}
+
+.corner-ornament.bottom-left {
+  bottom: 14px;
+  left: 14px;
+  border-bottom: 2px solid var(--gold-mid);
+  border-left: 2px solid var(--gold-mid);
+}
+
+/* Top Header Row */
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.vip-seal {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(111, 78, 19, 0.35));
+  border: 1px solid var(--gold-mid);
+  border-radius: 999px;
+  padding: 4px 10px;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+.seal-inner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vip-seal .crown-icon {
+  font-size: 0.85rem;
+}
+
+.vip-seal .seal-text {
+  font-family: var(--font-cinzel);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold-light);
+}
+
+.pass-number {
+  font-family: var(--font-cinzel);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  color: rgba(212, 175, 55, 0.7);
+}
+
+.pass-number .num {
+  color: var(--gold-light);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Main Titles */
+.card-title {
+  text-align: center;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gold-gradient-text {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff0a8 25%, #d4af37 65%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.35));
+  line-height: 1.15;
+}
+
+.sub-gold-text {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f1ebd8;
+  letter-spacing: 0.2px;
+}
+
+/* Flourish Divider */
+.card-divider-flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.flourish-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.45), transparent);
+}
+
+.flourish-diamond {
+  color: var(--gold-mid);
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* Details Box */
+.card-details-box {
+  background: rgba(7, 10, 20, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.detail-icon {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-label {
+  font-size: 0.74rem;
+  color: var(--gold-mid);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+.detail-value {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   PERFORATION TEAR STRIP (THE CUTTING LINE)
+   ========================================================================== */
+
+.tear-strip {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 5;
+}
+
+/* Outer circular notches on the left and right */
+.notch {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg-dark);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+  z-index: 6;
+}
+
+.notch-right {
+  right: -13px;
+  border-left: 1.5px solid rgba(212, 175, 55, 0.45);
+}
+
+.notch-left {
+  left: -13px;
+  border-right: 1.5px solid rgba(212, 175, 55, 0.45);
+}
+
+.dashed-line {
+  width: calc(100% - 36px);
+  height: 0;
+  border-top: 2px dashed rgba(212, 175, 55, 0.55);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scissors-icon {
+  position: absolute;
+  background: var(--card-bg-solid);
+  padding: 0 10px;
+  color: var(--gold-light);
+  font-size: 1rem;
+  animation: scissorHop 2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes scissorHop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(-8deg); }
+}
+
+/* Bottom Stub Content */
+.stub-info {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.stub-subtitle {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.barcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.75;
+}
+
+.barcode-lines {
+  width: 180px;
+  height: 22px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-mid) 0px,
+    var(--gold-mid) 2px,
+    transparent 2px,
+    transparent 5px,
+    var(--gold-light) 5px,
+    var(--gold-light) 8px,
+    transparent 8px,
+    transparent 10px,
+    var(--gold-mid) 10px,
+    var(--gold-mid) 14px,
+    transparent 14px,
+    transparent 16px
+  );
+  border-radius: 2px;
+}
+
+.barcode-text {
+  font-family: var(--font-cinzel);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  color: var(--gold-mid);
+}
+
+/* Primary Action Button (Golden VIP Button) */
+.luxury-gold-btn {
+  position: relative;
+  width: 100%;
+  padding: 15px 16px;
+  border: none;
+  background: linear-gradient(135deg, #fff2a3 0%, #d4af37 40%, #b8861d 80%, #90620e 100%);
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 
+    0 10px 25px rgba(212, 175, 55, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  -webkit-appearance: none;
+}
+
+.luxury-gold-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+}
+
+.luxury-gold-btn .btn-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #1e1302;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.luxury-gold-btn .btn-icon {
+  font-size: 1.15rem;
+  animation: snipAction 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes snipAction {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.18) rotate(15deg); }
+}
+
+.luxury-gold-btn .btn-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.luxury-gold-btn:hover .btn-glow {
+  opacity: 1;
+}
+
+/* Mini version for modal */
+.luxury-gold-btn.mini {
+  padding: 13px 18px;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   STEP 2: RIPPING / TEARING PHYSICAL ANIMATIONS
+   ========================================================================== */
+
+.luxury-card.is-ripping {
+  pointer-events: none;
+}
+
+/* Top half rips up & tilts */
+.luxury-card.is-ripping .card-top {
+  transform: translateY(-90px) rotate(-6deg) scale(0.96);
+  opacity: 0;
+  filter: blur(2px);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease, filter 0.8s ease;
+}
+
+/* Bottom stub rips down & tilts opposite */
+.luxury-card.is-ripping .card-bottom {
+  transform: translateY(90px) rotate(6deg) scale(0.96);
+  opacity: 0;
+  filter: blur(2px);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease, filter 0.8s ease;
+}
+
+/* Perforation tear effect */
+.luxury-card.is-ripping .tear-strip {
+  opacity: 0;
+  transform: scaleY(0);
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   STEP 2 TRANSITION: SUCCESS REVEAL MODAL
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 6, 14, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(165deg, rgba(17, 24, 45, 0.96) 0%, rgba(9, 13, 27, 0.98) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  border-radius: 28px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(212, 175, 55, 0.25);
+  transform: scale(0.85) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.modal-backdrop.active .modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.modal-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.modal-icon-ring {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(111, 78, 19, 0.3));
+  border: 1.5px solid var(--gold-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.modal-icon {
+  font-size: 2.2rem;
+  animation: pulseHeart 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+  line-height: 1.25;
+  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+
+.modal-message {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.modal-pulse-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+  margin: 0 auto 24px auto;
+}
+
+.modal-action-btn {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #fff0a8 0%, #d4af37 50%, #aa771c 100%);
+  color: #1a1000;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.modal-action-btn:active {
+  transform: scale(0.97);
+}
+
+.modal-action-btn .arrow-icon {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.modal-action-btn:active .arrow-icon {
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   STEP 3: 25-MINUTE ZEN SPA & AMBIENCE SCREEN
+   ========================================================================== */
+
+.spa-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+
+/* Pulsating Breathing Aura behind timer */
+.spa-breathing-aura {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.16) 0%,
+    rgba(229, 152, 155, 0.12) 40%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  animation: breathingPulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: 1;
+}
+
+@keyframes breathingPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0.95;
+  }
+}
+
+/* Floating Flower Petals / Gentle Spa Accents */
+.floating-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Spa Header */
+.spa-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.spa-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 999px;
+  padding: 4px 14px;
+  margin-bottom: 8px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #4ade80;
+  animation: liveBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.spa-tag #spa-status-text {
+  font-size: 0.78rem;
+  color: #86efac;
+  font-weight: 600;
+}
+
+.spa-title {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #f1ebd8 60%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Circular Timer */
+.timer-section {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 24px;
+}
+
+.circle-timer-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* Start progress from the top */
+}
+
+.timer-bg-outer {
+  fill: none;
+  stroke: rgba(212, 175, 55, 0.15);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+}
+
+.timer-bg-trail {
+  fill: rgba(12, 17, 34, 0.85);
+  stroke: rgba(212, 175, 55, 0.12);
+  stroke-width: 10;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: url(#gold-gradient);
+  stroke-width: 10;
+  stroke-linecap: round;
+  /* Circumference for radius 132 = 2 * PI * 132 ≈ 829.38 */
+  stroke-dasharray: 829.38;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.8s linear;
+}
+
+/* Center Content */
+.timer-inner-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.timer-decor-flower {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+  animation: gentleSway 4s ease-in-out infinite alternate;
+}
+
+@keyframes gentleSway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.timer-display {
+  font-family: var(--font-cinzel);
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.6),
+    0 2px 10px rgba(0, 0, 0, 0.8);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 6px;
+}
+
+.timer-subtext {
+  font-size: 0.85rem;
+  color: var(--gold-mid);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Dynamic Romantic Message Display */
+.romantic-message-container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 350px;
+  min-height: 78px;
+  padding: 14px 24px;
+  background: rgba(18, 25, 48, 0.75);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.quote-sign {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--gold-dark);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.quote-sign.right { top: 6px; right: 10px; }
+.quote-sign.left { bottom: 2px; left: 10px; }
+
+.romantic-text {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: #fff9ea;
+  text-align: center;
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.romantic-text.fade-out {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Spa Controls Panel */
+.spa-controls-panel {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 350px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.control-btn {
+  background: rgba(18, 24, 45, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  padding: 13px 12px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.control-btn:active {
+  transform: scale(0.96);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.control-btn .control-icon {
+  font-size: 1.3rem;
+}
+
+.control-btn .control-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+/* Equalizer Visualizer for Music Toggle */
+.equalizer-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+}
+
+.equalizer-bars span {
+  width: 3px;
+  background: var(--gold-mid);
+  border-radius: 2px;
+  height: 4px;
+}
+
+.music-control.active .equalizer-bars span {
+  animation: eqBounce 1.2s ease-in-out infinite alternate;
+}
+
+.music-control.active .equalizer-bars span:nth-child(1) { animation-delay: 0.1s; height: 14px; }
+.music-control.active .equalizer-bars span:nth-child(2) { animation-delay: 0.3s; height: 18px; }
+.music-control.active .equalizer-bars span:nth-child(3) { animation-delay: 0.2s; height: 10px; }
+.music-control.active .equalizer-bars span:nth-child(4) { animation-delay: 0.4s; height: 16px; }
+
+@keyframes eqBounce {
+  0% { height: 4px; }
+  100% { height: 18px; }
+}
+
+/* Demo / Helper bar for quick testing */
+.demo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 3;
+}
+
+.demo-link {
+  background: transparent;
+  border: none;
+  color: rgba(212, 175, 55, 0.7);
+  font-size: 0.74rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 4px 6px;
+  transition: color 0.2s;
+}
+
+.demo-link:hover, .demo-link:active {
+  color: var(--gold-light);
+}
+
+.demo-divider {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   STEP 4: TIME UP / ROMANTIC FINALE CELEBRATION
+   ========================================================================== */
+
+.modal-backdrop.finale-theme {
+  background: rgba(3, 5, 12, 0.92);
+}
+
+.finale-card {
+  max-width: 380px;
+  padding: 36px 26px;
+  background: linear-gradient(165deg, rgba(24, 18, 42, 0.98) 0%, rgba(10, 11, 26, 0.99) 100%);
+  border: 2px solid var(--gold-mid);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    0 0 60px rgba(212, 175, 55, 0.45);
+}
+
+.gold-flare {
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, rgba(229, 152, 155, 0.25) 50%, transparent 70%);
+}
+
+.heart-crown {
+  margin-bottom: 16px;
+}
+
+.heart-crown .large-heart {
+  font-size: 3.2rem;
+  display: inline-block;
+  animation: heartThrob 1.4s ease-in-out infinite;
+}
+
+@keyframes heartThrob {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.22); }
+  30% { transform: scale(1.08); }
+  45% { transform: scale(1.28); }
+}
+
+.finale-title {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #fff2a3 40%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+
+.finale-quote-box {
+  background: rgba(10, 14, 30, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 18px;
+  padding: 18px 16px;
+  margin-bottom: 24px;
+}
+
+.finale-main-msg {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff2a3;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.finale-sub-msg {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.finale-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondary-btn:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Footer note */
+.app-footer {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 10px;
+  z-index: 2;
+}
+
+.footer-heart {
+  font-size: 0.74rem;
+  color: rgba(212, 175, 55, 0.6);
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   IPHONE & SMALL SCREEN ADJUSTMENTS (< 380px)
+   ========================================================================== */
+@media (max-width: 375px) {
+  .gold-gradient-text { font-size: 1.85rem; }
+  .sub-gold-text { font-size: 1.1rem; }
+  .circle-timer-wrap { width: 250px; height: 250px; }
+  .timer-display { font-size: 2.9rem; }
+  .card-section { padding: 18px 16px; }
+}

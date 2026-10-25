@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>שובר מתנה מלכותי • יום הנישואין שלנו 👑</title>
+  
+  <!-- iOS Safari Web App Meta Tags & Apple Touch Icon -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="שובר VIP">
+  <meta name="theme-color" content="#070913">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23080c1d%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>👑</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23080c1d%22/><text y=%2268%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2256%22>👑</text></svg>">
+
+  <!-- Google Fonts: Assistant, Heebo & Playfair Display / Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&family=Frank+Ruhl+Libre:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti for magical celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Particle & Star Background -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <div class="app-container">
+    
+    <!-- Top Brand / Date Header -->
+    <header class="top-nav" id="top-nav">
+      <div class="luxury-badge">
+        <span class="sparkle">✦</span>
+        <span class="badge-text">יום הנישואין שלנו • חוויה אקסקלוסיבית</span>
+        <span class="sparkle">✦</span>
+      </div>
+    </header>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-content">
+
+      <!-- ============================================== -->
+      <!-- STEP 1 & 2: THE LUXURY COUPON SCREEN           -->
+      <!-- ============================================== -->
+      <section id="coupon-view" class="view-screen active">
+        
+        <!-- Golden Decorative Glow Backdrop -->
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+
+        <div class="coupon-wrapper" id="coupon-wrapper">
+          
+          <!-- Outer Holographic Foil Container -->
+          <div class="luxury-card" id="luxury-card">
+            
+            <!-- Card Shimmer Overlay -->
+            <div class="card-shimmer"></div>
+
+            <!-- TOP PORTION OF THE COUPON -->
+            <div class="card-section card-top" id="card-top">
+              
+              <!-- Luxury Corner Ornaments -->
+              <div class="corner-ornament top-right"></div>
+              <div class="corner-ornament top-left"></div>
+
+              <div class="card-header-row">
+                <div class="vip-seal">
+                  <div class="seal-inner">
+                    <span class="crown-icon">👑</span>
+                    <span class="seal-text">VIP PASS</span>
+                  </div>
+                </div>
+                <div class="pass-number">
+                  <span class="label">NO.</span>
+                  <span class="num">077 • ANNIVERSARY</span>
+                </div>
+              </div>
+
+              <!-- Main Title -->
+              <h1 class="card-title">
+                <span class="gold-gradient-text">שובר VIP</span>
+                <span class="sub-gold-text">עיסוי זוגי מפנק ומלכותי</span>
+              </h1>
+
+              <div class="card-divider-flourish">
+                <span class="flourish-line"></span>
+                <span class="flourish-diamond">◆</span>
+                <span class="flourish-line"></span>
+              </div>
+
+              <!-- Details Grid -->
+              <div class="card-details-box">
+                <div class="detail-item">
+                  <div class="detail-icon">❤️</div>
+                  <div class="detail-content">
+                    <span class="detail-label">תוקף השובר</span>
+                    <strong class="detail-value">תקף להיום בלבד: יום הנישואין שלנו</strong>
+                  </div>
+                </div>
+
+                <div class="detail-item">
+                  <div class="detail-icon">⏳</div>
+                  <div class="detail-content">
+                    <span class="detail-label">משך הפינוק המלכותי</span>
+                    <strong class="detail-value">25 דקות מלאות של שקט, רוגע ומגע קסום</strong>
+                  </div>
+                </div>
+
+                <div class="detail-item">
+                  <div class="detail-icon">✨</div>
+                  <div class="detail-content">
+                    <span class="detail-label">כולל השירות</span>
+                    <strong class="detail-value">שמנים ארומטיים, מוזיקת שלווה, מגע חם ופינוק אינסופי</strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- PERFORATION TEAR LINE (SEPARATION ZONE) -->
+            <div class="tear-strip" id="tear-strip">
+              <div class="notch notch-right"></div>
+              <div class="dashed-line">
+                <div class="scissors-icon">
+                  <span>✂️</span>
+                </div>
+              </div>
+              <div class="notch notch-left"></div>
+            </div>
+
+            <!-- BOTTOM PORTION / STUB OF THE COUPON -->
+            <div class="card-section card-bottom" id="card-bottom">
+              <div class="corner-ornament bottom-right"></div>
+              <div class="corner-ornament bottom-left"></div>
+
+              <div class="stub-info">
+                <p class="stub-subtitle">כל שעליך לעשות הוא ללחוץ כדי לקרוע/לממש את השובר</p>
+                <div class="barcode-container">
+                  <div class="barcode-lines"></div>
+                  <span class="barcode-text">LOVE-ANNIVERSARY-2024-FOREVER</span>
+                </div>
+              </div>
+
+              <!-- Action Tear Trigger Button -->
+              <button id="rip-coupon-btn" class="luxury-gold-btn" aria-label="לחצי כאן לקריעת השובר ומימוש מיידי">
+                <span class="btn-glow"></span>
+                <span class="btn-border"></span>
+                <span class="btn-text">
+                  <span class="btn-icon">✂️</span>
+                  <span>לחצי כאן לקריעת השובר ומימוש מיידי</span>
+                </span>
+              </button>
+
+            </div>
+
+          </div><!-- /luxury-card -->
+
+        </div><!-- /coupon-wrapper -->
+
+      </section>
+
+
+      <!-- ============================================== -->
+      <!-- STEP 2 TRANSITION: SUCCESS CELEBRATION MODAL   -->
+      <!-- ============================================== -->
+      <div id="reveal-modal" class="modal-backdrop">
+        <div class="modal-card">
+          <div class="modal-glow"></div>
+          <div class="modal-icon-ring">
+            <span class="modal-icon">💍</span>
+          </div>
+          <h2 class="modal-title">השובר מומש בהצלחה! ✨</h2>
+          <p class="modal-message">
+            השעון מתחיל עכשיו...<br>
+            תשכבי בנוח, תעצמי עיניים ותרפי את הגוף.
+          </p>
+          <div class="modal-pulse-line"></div>
+          <button id="start-spa-btn" class="modal-action-btn">
+            <span>כנסי למרחב השלווה והספא</span>
+            <span class="arrow-icon">←</span>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- ============================================== -->
+      <!-- STEP 3: THE 25-MINUTE ZEN SPA & AMBIENCE VIEW  -->
+      <!-- ============================================== -->
+      <section id="spa-view" class="view-screen">
+        
+        <!-- Soft pulsating breathing background aura -->
+        <div class="spa-breathing-aura"></div>
+        <div class="floating-petals" id="floating-petals"></div>
+
+        <div class="spa-container">
+          
+          <!-- Spa Status Header -->
+          <div class="spa-header">
+            <div class="spa-tag">
+              <span class="live-dot"></span>
+              <span id="spa-status-text">זמן הפינוק בעיצומו</span>
+            </div>
+            <h2 class="spa-title">מרחב רוגע, מגע ושלווה</h2>
+          </div>
+
+          <!-- Circular Luxury Countdown Timer -->
+          <div class="timer-section">
+            <div class="circle-timer-wrap">
+              <svg class="timer-svg" viewBox="0 0 320 320">
+                <defs>
+                  <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFF2A3"/>
+                    <stop offset="50%" stop-color="#D4AF37"/>
+                    <stop offset="100%" stop-color="#AA771C"/>
+                  </linearGradient>
+                  <linearGradient id="trail-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(212, 175, 55, 0.12)"/>
+                    <stop offset="100%" stop-color="rgba(212, 175, 55, 0.04)"/>
+                  </linearGradient>
+                  <filter id="timer-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+                
+                <!-- Background Decorative Rings -->
+                <circle class="timer-bg-outer" cx="160" cy="160" r="148" />
+                <circle class="timer-bg-trail" cx="160" cy="160" r="132" />
+                
+                <!-- Progress Animated Ring -->
+                <circle 
+                  id="timer-progress-ring" 
+                  class="timer-progress" 
+                  cx="160" 
+                  cy="160" 
+                  r="132"
+                  filter="url(#timer-glow)"
+                />
+              </svg>
+
+              <!-- Center Display Content -->
+              <div class="timer-inner-content">
+                <div class="timer-decor-flower">🌸</div>
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-subtext" id="timer-subtext">דקות של שלווה ומגע</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Loving Message Box -->
+          <div class="romantic-message-container">
+            <div class="quote-sign right">“</div>
+            <p id="romantic-message" class="romantic-text">
+              מגיע לך את כל השקט שבעולם... פשוט תנשמי עמוק ותרגישי את הרגע.
+            </p>
+            <div class="quote-sign left">”</div>
+          </div>
+
+          <!-- Spa & Sound Controls Bar -->
+          <div class="spa-controls-panel">
+            
+            <!-- Play / Pause Timer Button -->
+            <button id="toggle-timer-btn" class="control-btn main-control" aria-label="הפעל / השהה">
+              <span id="play-pause-icon" class="control-icon">⏸️</span>
+              <span id="play-pause-label" class="control-label">השהה פינוק</span>
+            </button>
+
+            <!-- Relaxing Spa Ambient Music Toggle -->
+            <button id="toggle-music-btn" class="control-btn music-control active" aria-label="מוזיקת ספא">
+              <div class="equalizer-bars" id="music-bars">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <span class="control-label" id="music-toggle-label">מוזיקת ספא פעילה</span>
+            </button>
+
+          </div>
+
+          <!-- Quick Test / Demo Helper Bar (Subtle & Elegant) -->
+          <div class="demo-actions">
+            <button id="demo-fast-forward-btn" class="demo-link" title="קפוץ ל-10 שניות אחרונות לבדיקה">
+              ⚡ בדיקה מהירה (10 שניות לסיום)
+            </button>
+            <span class="demo-divider">•</span>
+            <button id="add-five-min-btn" class="demo-link">
+              +5 דקות נוספות
+            </button>
+          </div>
+
+        </div><!-- /spa-container -->
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- STEP 4: TIME UP / ROMANTIC FINALE MODAL        -->
+      <!-- ============================================== -->
+      <div id="finale-modal" class="modal-backdrop finale-theme">
+        <div class="modal-card finale-card">
+          <div class="modal-glow gold-flare"></div>
+          <div class="heart-crown">
+            <span class="large-heart">💖</span>
+          </div>
+          <h2 class="finale-title">זמן הפינוק הסתיים ✨</h2>
+          <div class="finale-quote-box">
+            <p class="finale-main-msg">
+              אבל האהבה שלי אלייך נמשכת לתמיד ❤️
+            </p>
+            <p class="finale-sub-msg">
+              יום נישואין שמח לאישה הכי מיוחדת, מוכשרת, אהובה ויפהפייה ביקום.
+              תודה על כל רגע לצידך.
+            </p>
+          </div>
+          <div class="finale-buttons">
+            <button id="restart-spa-btn" class="luxury-gold-btn mini">
+              <span>רוצה עוד 5 דקות של רוגע? 💆‍♀️</span>
+            </button>
+            <button id="close-finale-btn" class="secondary-btn">
+              <span>חזרה לשעון</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Audio Notice / Safari Gesture Handshake -->
+    <footer class="app-footer">
+      <span class="footer-heart">✨ עוצב באהבה ענקית ליום הנישואין שלנו ✨</span>
+    </footer>
+
+  </div><!-- /app-container -->
+
+  <!-- Audio System & App Logic Scripts -->
+  <script src="audio.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
