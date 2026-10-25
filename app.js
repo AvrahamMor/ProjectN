@@ -1,29 +1,29 @@
 /**
- * Luxury Anniversary VIP Coupon & Spa App
- * Main Controller & Touch Interactions
+ * Luxury Boarding Pass & Spa Experience
+ * Touch-First Draggable Tear Gesture • Mystery 1/6 Theme • Auto Spa Launch
  */
 
 (function () {
   'use strict';
 
-  // --- State Variables ---
+  // --- Timer State ---
   const INITIAL_DURATION_SEC = 25 * 60; // 25 Minutes = 1500 seconds
   let totalDurationSec = INITIAL_DURATION_SEC;
   let remainingSec = INITIAL_DURATION_SEC;
   let timerInterval = null;
   let isTimerRunning = false;
-  let isRipped = false;
+  let isTorn = false;
 
-  // --- Dynamic Loving Messages ---
+  // --- Dynamic Mystery & Romance Messages ---
   const ROMANTIC_MESSAGES = [
-    "מגיע לך את כל השקט שבעולם... פשוט תנשמי עמוק ותרגישי את הרגע.",
-    "אוהב אותך עד אין קץ ❤️ את האישה של חיי והמתנה הכי יקרה שלי.",
-    "תני לכל הדאגות והמחשבות להתפוגג עכשיו... הגוף שלך במקום בטוח ורגוע.",
+    "תשכבי בנוח, תעצמי עיניים ותרפי את הגוף... פשוט תנשמי עמוק.",
+    "בלי לחשוב על כלום, בלי שאלות... כל הרגע הזה הוא רק בשבילך 🌸",
+    "מגיע לך את כל השקט שבעולם... תני לי לדאוג לכל השאר.",
+    "ניצן, את האישה הכי מיוחדת בעולם... תרגישי כמה את אהובה ומוגנת ❤️",
     "תשקעי לתוך הרוגע והחום, כל נשימה מעמיקה את השלווה שלך ✨",
-    "תודה על כל יום לצידך, על האור שאת מכניסה לחיים שלי 💍",
-    "העיניים שלך, החיוך שלך, הלב שלך – הכל בך פשוט מושלם 🌸",
-    "פשוט תעצמי עיניים ותרגישי כמה את אהובה, מוגנת ומוערכת.",
-    "יום נישואין שמח למלכה הפרטית שלי 👑"
+    "חלק 1 מתוך 6... וזו רק ההתחלה של מה שמחכה לך 🤫",
+    "פשוט תהיי כאן ועכשיו, בתוך השקט והמגע המרגיע.",
+    "הלב שלי שלך לתמיד... תיהני מכל שנייה של שלווה 👑"
   ];
   let currentMessageIndex = 0;
   let messageInterval = null;
@@ -31,13 +31,11 @@
   // --- DOM Elements ---
   const couponView = document.getElementById('coupon-view');
   const spaView = document.getElementById('spa-view');
-  const luxuryCard = document.getElementById('luxury-card');
-  const ripCouponBtn = document.getElementById('rip-coupon-btn');
-  const revealModal = document.getElementById('reveal-modal');
-  const startSpaBtn = document.getElementById('start-spa-btn');
-  const finaleModal = document.getElementById('finale-modal');
-  const restartSpaBtn = document.getElementById('restart-spa-btn');
-  const closeFinaleBtn = document.getElementById('close-finale-btn');
+  const boardingPass = document.getElementById('boarding-pass');
+  const tearSliderContainer = document.getElementById('tear-slider-container');
+  const tearHandle = document.getElementById('tear-handle');
+  const tearRipFill = document.getElementById('tear-rip-fill');
+  const tearInstruction = document.getElementById('tear-instruction');
 
   // Spa Controls & Display
   const timerDisplay = document.getElementById('timer-display');
@@ -52,6 +50,13 @@
   const demoFastForwardBtn = document.getElementById('demo-fast-forward-btn');
   const addFiveMinBtn = document.getElementById('add-five-min-btn');
 
+  // Finale Elements
+  const finaleModal = document.getElementById('finale-modal');
+  const restartSpaBtn = document.getElementById('restart-spa-btn');
+  const closeFinaleBtn = document.getElementById('close-finale-btn');
+  const revealAnniversaryBtn = document.getElementById('reveal-anniversary-btn');
+  const secretAnniversaryCard = document.getElementById('secret-anniversary-card');
+
   // SVG Ring Circumference (radius = 132)
   const RING_CIRCUMFERENCE = 2 * Math.PI * 132; // ~829.38
   if (timerProgressRing) {
@@ -65,7 +70,6 @@
   const ambientCanvas = document.getElementById('ambient-canvas');
   let canvasCtx = null;
   let particles = [];
-  let animFrameId = null;
 
   function initAmbientCanvas() {
     if (!ambientCanvas) return;
@@ -73,16 +77,15 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas, { passive: true });
 
-    // Generate stars & golden floating dust
     particles = [];
-    const count = Math.min(window.innerWidth < 450 ? 45 : 70, 80);
+    const count = window.innerWidth < 450 ? 45 : 70;
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * ambientCanvas.width,
         y: Math.random() * ambientCanvas.height,
         size: Math.random() * 2.2 + 0.6,
         alpha: Math.random() * 0.7 + 0.2,
-        speedY: -(Math.random() * 0.4 + 0.15),
+        speedY: -(Math.random() * 0.35 + 0.1),
         speedX: (Math.random() - 0.5) * 0.2,
         pulseSpeed: Math.random() * 0.02 + 0.01,
         color: Math.random() > 0.4 ? 'rgba(212, 175, 55, ' : 'rgba(229, 152, 155, '
@@ -106,7 +109,7 @@
       p.y += p.speedY;
       p.x += p.speedX;
       p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.015;
-      const clampedAlpha = Math.max(0.1, Math.min(0.9, p.alpha));
+      const clampedAlpha = Math.max(0.1, Math.min(0.85, p.alpha));
 
       if (p.y < -10) p.y = ambientCanvas.height + 10;
       if (p.x < -10) p.x = ambientCanvas.width + 10;
@@ -120,102 +123,188 @@
       canvasCtx.fill();
     });
 
-    animFrameId = requestAnimationFrame(renderParticles);
+    requestAnimationFrame(renderParticles);
   }
 
   // ==========================================================================
-  // 2. COUPON TEAR & INTERACTION
+  // 2. INTERACTIVE SWIPE-TO-TEAR GESTURE (NO BUTTON!)
   // ==========================================================================
 
-  function triggerTearAnimation() {
-    if (isRipped) return;
-    isRipped = true;
+  let isDragging = false;
+  let startX = 0;
+  let currentDragX = 0;
+  let maxDragDistance = 0;
 
-    // Haptic feedback if supported on iOS/Android
-    if ('vibrate' in navigator) {
-      try {
-        navigator.vibrate([40, 60, 90]);
-      } catch (e) {}
+  function initTearGesture() {
+    if (!tearSliderContainer || !tearHandle) return;
+
+    function getPointerX(e) {
+      if (e.touches && e.touches.length > 0) {
+        return e.touches[0].clientX;
+      }
+      return e.clientX;
     }
 
-    // Play procedural tear sound effect via Web Audio API
+    function onDragStart(e) {
+      if (isTorn) return;
+      isDragging = true;
+      const rect = tearSliderContainer.getBoundingClientRect();
+      const handleRect = tearHandle.getBoundingClientRect();
+      maxDragDistance = rect.width - handleRect.width - 4;
+
+      // In RTL, starting from the right side of the container
+      startX = getPointerX(e);
+      tearHandle.style.transition = 'none';
+      if (tearRipFill) tearRipFill.style.transition = 'none';
+
+      // Unlock Web Audio on first user touch
+      if (window.spaAudio) {
+        window.spaAudio.initContext();
+      }
+    }
+
+    function onDragMove(e) {
+      if (!isDragging || isTorn) return;
+
+      const currentX = getPointerX(e);
+      // Moving finger towards left increases drag in RTL:
+      let dragDelta = startX - currentX;
+      if (dragDelta < 0) dragDelta = 0;
+      if (dragDelta > maxDragDistance) dragDelta = maxDragDistance;
+
+      currentDragX = dragDelta;
+      const progressFraction = currentDragX / maxDragDistance;
+
+      // Move the scissors handle along the track
+      tearHandle.style.transform = `translateX(-${currentDragX}px) scale(1.06)`;
+
+      // Expand the rip fill behind scissors
+      if (tearRipFill) {
+        tearRipFill.style.width = `${(progressFraction * 100).toFixed(1)}%`;
+      }
+
+      // Fade out prompt text
+      if (tearInstruction) {
+        tearInstruction.style.opacity = Math.max(0, 1 - progressFraction * 1.5);
+      }
+
+      // Real-time paper tearing crackle sounds
+      if (window.spaAudio && progressFraction > 0.05) {
+        window.spaAudio.playDragCrackle(progressFraction);
+      }
+
+      // Micro haptic pulse on mobile
+      if ('vibrate' in navigator && Math.random() > 0.7) {
+        try { navigator.vibrate(8); } catch (err) {}
+      }
+    }
+
+    function onDragEnd() {
+      if (!isDragging || isTorn) return;
+      isDragging = false;
+
+      const progressFraction = currentDragX / maxDragDistance;
+
+      // Threshold: if dragged > 75%, trigger tear completion!
+      if (progressFraction >= 0.75) {
+        completeTearAction();
+      } else {
+        // Reset back smoothly
+        tearHandle.style.transition = 'transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
+        tearHandle.style.transform = 'translateX(0px)';
+        if (tearRipFill) {
+          tearRipFill.style.transition = 'width 0.3s ease';
+          tearRipFill.style.width = '0%';
+        }
+        if (tearInstruction) {
+          tearInstruction.style.opacity = '1';
+        }
+        currentDragX = 0;
+      }
+    }
+
+    // Touch events for mobile/iPhone
+    tearSliderContainer.addEventListener('touchstart', onDragStart, { passive: false });
+    window.addEventListener('touchmove', onDragMove, { passive: true });
+    window.addEventListener('touchend', onDragEnd, { passive: true });
+
+    // Pointer/Mouse events for desktop
+    tearSliderContainer.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+  }
+
+  function completeTearAction() {
+    if (isTorn) return;
+    isTorn = true;
+
+    // Snap handle to the end
+    tearHandle.style.transition = 'transform 0.15s ease';
+    tearHandle.style.transform = `translateX(-${maxDragDistance}px)`;
+    if (tearRipFill) {
+      tearRipFill.style.width = '100%';
+    }
+
+    // Haptic feedback
+    if ('vibrate' in navigator) {
+      try { navigator.vibrate([40, 80, 120]); } catch (e) {}
+    }
+
+    // Play procedural snap tear sound effect
     if (window.spaAudio) {
       window.spaAudio.playTearSound();
     }
 
-    // Apply tearing class
-    luxuryCard.classList.add('is-ripping');
+    // Apply physical tear class: the stub detaches and falls away
+    boardingPass.classList.add('is-torn');
 
-    // Confetti Fireworks explosion (Gold, Rose Gold, Heart Sprinkles)
-    fireLuxuryConfetti();
+    // Confetti fireworks explosion
+    fireConfetti();
 
-    // Show Reveal Modal after slight delay
+    // Smoothly and automatically launch the Spa mode after 1.2 seconds!
     setTimeout(() => {
-      revealModal.classList.add('active');
-    }, 700);
+      startSpaExperience();
+    }, 1200);
   }
 
-  // Multi-stage Golden & Rose Confetti
-  function fireLuxuryConfetti() {
+  function fireConfetti() {
     if (typeof confetti === 'function') {
-      const goldPalette = ['#D4AF37', '#FFF2A3', '#AA771C', '#E5989B', '#FFFFFF'];
+      const goldPalette = ['#D4AF37', '#FFF6C7', '#AA771C', '#E5989B', '#FFFFFF'];
 
-      // Burst 1: Center Pop
+      // Burst 1: Center
       confetti({
-        particleCount: 70,
-        spread: 80,
+        particleCount: 75,
+        spread: 85,
         origin: { y: 0.55 },
         colors: goldPalette,
-        startVelocity: 35,
-        disableForReducedMotion: true
+        startVelocity: 38
       });
 
-      // Burst 2: Left Cannon
+      // Burst 2: Side Cannons
       setTimeout(() => {
         confetti({
-          particleCount: 50,
+          particleCount: 45,
           angle: 60,
-          spread: 65,
-          origin: { x: 0, y: 0.6 },
+          spread: 60,
+          origin: { x: 0, y: 0.65 },
+          colors: goldPalette
+        });
+        confetti({
+          particleCount: 45,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1, y: 0.65 },
           colors: goldPalette
         });
       }, 250);
-
-      // Burst 3: Right Cannon
-      setTimeout(() => {
-        confetti({
-          particleCount: 50,
-          angle: 120,
-          spread: 65,
-          origin: { x: 1, y: 0.6 },
-          colors: goldPalette
-        });
-      }, 400);
-
-      // Burst 4: Falling stars / hearts shower
-      setTimeout(() => {
-        confetti({
-          particleCount: 40,
-          spread: 100,
-          origin: { y: 0.3 },
-          shapes: ['circle'],
-          colors: ['#FFE58F', '#FF758F', '#D4AF37'],
-          gravity: 0.8,
-          scalar: 1.2
-        });
-      }, 700);
     }
   }
 
   // ==========================================================================
-  // 3. TRANSITION TO STEP 3 (SPA MODE & TIMER)
+  // 3. LAUNCH SPA SANCTUARY & START 25-MIN TIMER AUTOMATICALLY
   // ==========================================================================
 
-  function transitionToSpaView() {
-    // Hide Modal
-    revealModal.classList.remove('active');
-
-    // Smooth Screen Transition
+  function startSpaExperience() {
     couponView.classList.remove('active');
     setTimeout(() => {
       couponView.style.display = 'none';
@@ -224,11 +313,13 @@
         spaView.classList.add('active');
       }, 40);
 
-      // Automatically start Spa Music and 25-minute timer
+      // Start relaxing 432Hz ambient spa music automatically
       if (window.spaAudio) {
         window.spaAudio.startSpaMusic();
         updateMusicUI(true);
       }
+
+      // Start 25:00 countdown timer automatically
       startTimer();
       startDynamicMessages();
     }, 400);
@@ -292,7 +383,7 @@
     if (running) {
       playPauseIcon.textContent = '⏸️';
       playPauseLabel.textContent = 'השהה פינוק';
-      spaStatusText.textContent = 'זמן הפינוק בעיצומו';
+      spaStatusText.textContent = 'חלק 1/6 בעיצומו • עיסוי מלכותי';
       spaStatusText.parentElement.style.borderColor = 'rgba(34, 197, 94, 0.3)';
     } else {
       playPauseIcon.textContent = '▶️';
@@ -303,7 +394,7 @@
   }
 
   // ==========================================================================
-  // 5. AMBIENT MUSIC TOGGLE & CONTROLS
+  // 5. AMBIENT MUSIC CONTROLS
   // ==========================================================================
 
   function toggleMusic() {
@@ -348,22 +439,20 @@
   }
 
   // ==========================================================================
-  // 7. STEP 4: TIME UP / FINALE CELEBRATION
+  // 7. STEP 3: FINALE CELEBRATION (MYSTERY & SECRET REVEAL)
   // ==========================================================================
 
   function finishSpaSession() {
     pauseTimer();
 
-    // Play singing bowl & victory chime chord
     if (window.spaAudio) {
       window.spaAudio.playTimerCompleteSound();
     }
 
-    // Mega celebration confetti
     if (typeof confetti === 'function') {
       const duration = 4000;
       const animationEnd = Date.now() + duration;
-      const colors = ['#D4AF37', '#FFF2A3', '#FF758F', '#FFFFFF', '#E5989B'];
+      const colors = ['#D4AF37', '#FFF6C7', '#FF758F', '#FFFFFF', '#E5989B'];
 
       (function frame() {
         confetti({
@@ -387,57 +476,32 @@
       }());
     }
 
-    // Show Finale Modal
     setTimeout(() => {
       if (finaleModal) {
         finaleModal.classList.add('active');
       }
-    }, 800);
+    }, 700);
   }
 
   // ==========================================================================
-  // 8. EVENT LISTENERS & SETUP
+  // 8. EVENT LISTENERS
   // ==========================================================================
 
   function setupEventListeners() {
-    // 1. Coupon Rip Button
-    if (ripCouponBtn) {
-      ripCouponBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        triggerTearAnimation();
-      });
-      ripCouponBtn.addEventListener('touchend', (e) => {
-        // Ensure immediate touch response on iOS
-        e.preventDefault();
-        triggerTearAnimation();
-      });
-    }
+    // 1. Interactive Tear Slider Gesture
+    initTearGesture();
 
-    // Also allow tapping the card itself to tear
-    if (luxuryCard) {
-      luxuryCard.addEventListener('click', (e) => {
-        if (!isRipped && !e.target.closest('#rip-coupon-btn')) {
-          triggerTearAnimation();
-        }
-      });
-    }
-
-    // 2. Start Spa button from Reveal Modal
-    if (startSpaBtn) {
-      startSpaBtn.addEventListener('click', transitionToSpaView);
-    }
-
-    // 3. Play / Pause Timer
+    // 2. Play / Pause Timer
     if (toggleTimerBtn) {
       toggleTimerBtn.addEventListener('click', toggleTimer);
     }
 
-    // 4. Music Toggle
+    // 3. Music Toggle
     if (toggleMusicBtn) {
       toggleMusicBtn.addEventListener('click', toggleMusic);
     }
 
-    // 5. Demo Fast Forward (Sets timer to 10 seconds for instant test)
+    // 4. Demo Fast Forward (10 seconds left)
     if (demoFastForwardBtn) {
       demoFastForwardBtn.addEventListener('click', () => {
         remainingSec = 10;
@@ -448,7 +512,7 @@
       });
     }
 
-    // 6. Add 5 Minutes (+300 sec)
+    // 5. Add 5 Minutes
     if (addFiveMinBtn) {
       addFiveMinBtn.addEventListener('click', () => {
         remainingSec += 300;
@@ -457,11 +521,11 @@
       });
     }
 
-    // 7. Restart Spa / Extra 5 minutes from Finale Modal
+    // 6. Restart Spa / Extra 5 minutes from Finale
     if (restartSpaBtn) {
       restartSpaBtn.addEventListener('click', () => {
         if (finaleModal) finaleModal.classList.remove('active');
-        remainingSec = 5 * 60; // 5 more minutes
+        remainingSec = 5 * 60;
         totalDurationSec = 5 * 60;
         updateTimerDisplay();
         startTimer();
@@ -474,20 +538,18 @@
       });
     }
 
-    // Gentle 3D Gyro / Touch tilt on coupon card
-    if (luxuryCard && window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        if (isRipped) return;
-        const gamma = e.gamma || 0; // Left-to-right tilt [-90,90]
-        const beta = e.beta || 0;   // Front-to-back tilt [-180,180]
-        const tiltX = Math.max(-12, Math.min(12, beta / 4));
-        const tiltY = Math.max(-12, Math.min(12, -gamma / 3));
-        luxuryCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-      }, { passive: true });
+    // 7. Secret Reveal Button (Optional toggle in Finale modal)
+    if (revealAnniversaryBtn && secretAnniversaryCard) {
+      revealAnniversaryBtn.addEventListener('click', () => {
+        secretAnniversaryCard.classList.toggle('hidden');
+        if (!secretAnniversaryCard.classList.contains('hidden')) {
+          fireConfetti();
+        }
+      });
     }
   }
 
-  // --- Document Ready ---
+  // Document Ready
   document.addEventListener('DOMContentLoaded', () => {
     initAmbientCanvas();
     setupEventListeners();

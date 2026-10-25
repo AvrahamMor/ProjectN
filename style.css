@@ -1,51 +1,36 @@
 /* ==========================================================================
-   LUXURY ANNIVERSARY VIP COUPON & SPA APP - STYLESHEET
-   Mobile-First • Safari/iOS Optimized • Hebrew RTL • Deep Midnight & 24K Gold
+   LUXURY BOARDING PASS & SPA EXPERIENCE (1/6 MYSTERY THEME)
+   Exact match to reference ticket • Mobile-First Safari iOS • RTL Hebrew
    ========================================================================== */
 
 :root {
-  /* Color Palette */
-  --bg-dark: #070913;
-  --bg-gradient-top: #0a0d1d;
-  --bg-gradient-bottom: #05070e;
+  /* Color Palette matching reference image */
+  --bg-dark: #050814;
+  --ticket-navy: #091024;
+  --ticket-navy-dark: #050a17;
   
-  /* Rich Gold Accents */
+  /* 24K Gold & Warm Metallic Accents */
+  --gold-highlight: #fff6c7;
   --gold-pure: #d4af37;
-  --gold-light: #fff2a3;
-  --gold-mid: #e6ca65;
-  --gold-dark: #aa771c;
-  --gold-deep: #6f4e13;
-  
-  /* Rose Gold & Romantic Hues */
-  --rose-gold: #e5989b;
-  --rose-light: #ffb4a2;
-  --rose-glow: rgba(229, 152, 155, 0.35);
-  --gold-glow: rgba(212, 175, 55, 0.4);
-  --gold-glow-subtle: rgba(212, 175, 55, 0.12);
-
-  /* Glassmorphism & Cards */
-  --card-bg: rgba(16, 22, 40, 0.78);
-  --card-bg-solid: #0d1326;
-  --card-border: rgba(212, 175, 55, 0.32);
-  --glass-surface: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --gold-mid: #e1be53;
+  --gold-dark: #a67c1e;
+  --gold-deep: #684b0e;
+  --gold-glow: rgba(212, 175, 55, 0.45);
+  --gold-subtle: rgba(212, 175, 55, 0.16);
 
   /* Typography */
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --text-gold: #ecd279;
-  
-  /* Fonts */
   --font-serif: 'Frank Ruhl Libre', serif;
   --font-sans: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-cinzel: 'Cinzel', serif;
 
-  /* Sizing & Safe Areas */
-  --safe-top: env(safe-area-inset-top, 20px);
-  --safe-bottom: env(safe-area-inset-bottom, 20px);
+  /* Safe Areas */
+  --safe-top: env(safe-area-inset-top, 16px);
+  --safe-bottom: env(safe-area-inset-bottom, 16px);
 }
 
-/* Base Reset & iOS viewport hardening */
+/* Base Reset & iOS Hardening */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -74,12 +59,12 @@ body {
   min-height: -webkit-fill-available;
   min-height: 100dvh;
   position: relative;
-  background: radial-gradient(circle at 50% 15%, #18203d 0%, #090c1b 50%, #04060d 100%);
+  background: radial-gradient(circle at 50% 12%, #141c38 0%, #080d1e 50%, #03050c 100%);
   display: flex;
   flex-direction: column;
 }
 
-/* Ambient Canvas Background (Stardust & Floating Shimmer) */
+/* Ambient Canvas Background */
 #ambient-canvas {
   position: fixed;
   top: 0;
@@ -88,7 +73,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 /* App Shell Layout */
@@ -102,10 +87,10 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--safe-top) + 8px) 16px calc(var(--safe-bottom) + 12px) 16px;
+  padding: calc(var(--safe-top) + 8px) 14px calc(var(--safe-bottom) + 10px) 14px;
 }
 
-/* Top Branding Bar */
+/* Mystery Top Header */
 .top-nav {
   display: flex;
   justify-content: center;
@@ -114,30 +99,30 @@ body {
   z-index: 2;
 }
 
-.luxury-badge {
+.mystery-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: rgba(212, 175, 55, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.28);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: 999px;
-  padding: 6px 16px;
+  padding: 5px 16px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
 }
 
-.luxury-badge .sparkle {
+.mystery-badge .sparkle {
   color: var(--gold-mid);
   font-size: 0.8rem;
   animation: sparkleTwinkle 2.5s ease-in-out infinite alternate;
 }
 
-.luxury-badge .badge-text {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--gold-light);
+.mystery-badge .badge-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--gold-highlight);
 }
 
 @keyframes sparkleTwinkle {
@@ -162,7 +147,7 @@ body {
   flex-direction: column;
   align-items: center;
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
 .view-screen.active {
@@ -170,20 +155,20 @@ body {
   opacity: 1;
 }
 
-/* Glow Background Orbs */
+/* Background Glowing Orbs */
 .glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(65px);
   pointer-events: none;
   z-index: 0;
 }
 
 .orb-1 {
-  width: 260px;
-  height: 260px;
+  width: 280px;
+  height: 280px;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.22), transparent 70%);
-  top: 10%;
+  top: 12%;
   left: 50%;
   transform: translateX(-50%);
   animation: orbFloat 8s ease-in-out infinite alternate;
@@ -192,8 +177,8 @@ body {
 .orb-2 {
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle, rgba(229, 152, 155, 0.18), transparent 70%);
-  bottom: 8%;
+  background: radial-gradient(circle, rgba(229, 152, 155, 0.16), transparent 70%);
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -204,41 +189,41 @@ body {
 }
 
 /* ==========================================================================
-   STEP 1: THE VIP LUXURY GIFT CARD / COUPON
+   THE BOARDING PASS (Matching Reference Image)
    ========================================================================== */
 
-.coupon-wrapper {
+.ticket-wrapper {
   position: relative;
   width: 100%;
-  max-width: 370px;
+  max-width: 376px;
   perspective: 1200px;
   z-index: 2;
   margin: auto 0;
 }
 
-.luxury-card {
+.boarding-pass {
   position: relative;
   width: 100%;
-  background: linear-gradient(165deg, rgba(19, 26, 49, 0.96) 0%, rgba(10, 14, 28, 0.98) 100%);
-  border-radius: 24px;
-  box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.8),
-    0 0 35px rgba(212, 175, 55, 0.2),
-    inset 0 1px 0 rgba(255, 242, 163, 0.35);
+  background: linear-gradient(165deg, #0b1328 0%, #060a16 100%);
+  border-radius: 20px;
   border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 
+    0 25px 65px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(212, 175, 55, 0.18),
+    inset 0 1px 0 rgba(255, 246, 199, 0.4);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
 }
 
-/* Hologram Shimmer Sheen */
+/* Holographic Sheen */
 .card-shimmer {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     115deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.03) 40%,
-    rgba(255, 242, 163, 0.12) 50%,
+    rgba(255, 255, 255, 0.02) 40%,
+    rgba(255, 246, 199, 0.12) 50%,
     transparent 60%
   );
   transform: translateX(-100%);
@@ -252,303 +237,513 @@ body {
   100% { transform: translateX(120%); }
 }
 
-/* Card Section Shared */
-.card-section {
+/* MAIN PASS BODY */
+.pass-main {
   position: relative;
-  padding: 24px 22px;
+  padding: 16px 14px 12px 14px;
   background: transparent;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, filter 0.7s ease;
+  transition: transform 0.6s ease;
 }
 
-.card-top {
-  padding-bottom: 20px;
+/* Ornate Double Border & Filigree (like in reference picture) */
+.pass-inner-border {
+  position: relative;
+  border: 1.5px solid var(--gold-mid);
+  border-radius: 14px;
+  padding: 18px 14px 16px 14px;
+  background: rgba(8, 14, 30, 0.5);
+  box-shadow: inset 0 0 16px rgba(212, 175, 55, 0.08);
 }
 
-.card-bottom {
-  padding-top: 20px;
-  background: rgba(6, 9, 18, 0.55);
-}
-
-/* Corner Ornaments (Luxury Filigree) */
-.corner-ornament {
+/* Corner Filigrees */
+.ornament {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  border-color: var(--gold-mid);
-  opacity: 0.65;
+  width: 24px;
+  height: 24px;
   pointer-events: none;
 }
 
-.corner-ornament.top-right {
-  top: 14px;
-  right: 14px;
+.ornament.top-right {
+  top: 4px;
+  right: 4px;
   border-top: 2px solid var(--gold-mid);
   border-right: 2px solid var(--gold-mid);
+  border-top-right-radius: 6px;
 }
 
-.corner-ornament.top-left {
-  top: 14px;
-  left: 14px;
+.ornament.top-left {
+  top: 4px;
+  left: 4px;
   border-top: 2px solid var(--gold-mid);
   border-left: 2px solid var(--gold-mid);
+  border-top-left-radius: 6px;
 }
 
-.corner-ornament.bottom-right {
-  bottom: 14px;
-  right: 14px;
+.ornament.bottom-right {
+  bottom: 4px;
+  right: 4px;
   border-bottom: 2px solid var(--gold-mid);
   border-right: 2px solid var(--gold-mid);
+  border-bottom-right-radius: 6px;
 }
 
-.corner-ornament.bottom-left {
-  bottom: 14px;
-  left: 14px;
+.ornament.bottom-left {
+  bottom: 4px;
+  left: 4px;
   border-bottom: 2px solid var(--gold-mid);
   border-left: 2px solid var(--gold-mid);
+  border-bottom-left-radius: 6px;
 }
 
-/* Top Header Row */
-.card-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+.ornament-heart {
+  position: absolute;
+  font-size: 0.95rem;
+  line-height: 1;
+  transform: translateX(50%);
+  right: 50%;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.6));
 }
 
-.vip-seal {
-  display: inline-flex;
-  align-items: center;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(111, 78, 19, 0.35));
-  border: 1px solid var(--gold-mid);
-  border-radius: 999px;
-  padding: 4px 10px;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+.ornament-heart.top-center {
+  top: -8px;
+  background: #091024;
+  padding: 0 4px;
 }
 
-.seal-inner {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.ornament-heart.bottom-center {
+  bottom: -8px;
+  background: #070d1e;
+  padding: 0 4px;
 }
 
-.vip-seal .crown-icon {
-  font-size: 0.85rem;
-}
-
-.vip-seal .seal-text {
-  font-family: var(--font-cinzel);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--gold-light);
-}
-
-.pass-number {
-  font-family: var(--font-cinzel);
-  font-size: 0.68rem;
-  letter-spacing: 1px;
-  color: rgba(212, 175, 55, 0.7);
-}
-
-.pass-number .num {
-  color: var(--gold-light);
-  font-weight: 700;
-  margin-right: 4px;
-}
-
-/* Main Titles */
-.card-title {
+/* Header inside ticket */
+.pass-header {
   text-align: center;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  margin-bottom: 12px;
 }
 
-.gold-gradient-text {
+.main-title {
   font-family: var(--font-serif);
-  font-size: 2.1rem;
+  font-size: 1.85rem;
   font-weight: 900;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 0%, #fff0a8 25%, #d4af37 65%, #aa771c 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff6c7 35%, #d4af37 75%, #aa771c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.35));
-  line-height: 1.15;
+  line-height: 1.25;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
 }
 
-.sub-gold-text {
+.subtitle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.heart-accent {
+  font-size: 0.95rem;
+  animation: heartGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes heartGlow {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.4)); }
+  100% { transform: scale(1.18); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8)); }
+}
+
+.mystery-sub {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #f1ebd8;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--gold-highlight);
   letter-spacing: 0.2px;
 }
 
-/* Flourish Divider */
-.card-divider-flourish {
+/* Dividers */
+.pass-divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+  margin: 12px 0;
+  opacity: 0.7;
+}
+
+.pass-divider-thin {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+  margin: 10px 0;
+}
+
+/* Passenger details */
+.passenger-section {
+  text-align: center;
+  margin: 8px 0;
+}
+
+.passenger-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 8px;
 }
 
-.flourish-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.45), transparent);
+.passenger-row .label {
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  font-weight: 600;
 }
 
-.flourish-diamond {
+.passenger-row .value {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--gold-highlight);
+  text-shadow: 0 1px 8px rgba(212, 175, 55, 0.35);
+}
+
+/* Event Details Box */
+.event-details {
+  text-align: center;
+  margin: 8px 0 12px 0;
+}
+
+.event-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.event-desc {
+  font-size: 0.86rem;
+  color: #e2e8f0;
+  line-height: 1.45;
+  font-weight: 400;
+}
+
+/* Meta Details Row */
+.meta-details-box {
+  background: rgba(4, 7, 16, 0.65);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+}
+
+.meta-row {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.meta-sep {
+  color: var(--gold-dark);
+}
+
+.meta-row strong {
   color: var(--gold-mid);
-  font-size: 0.7rem;
+}
+
+.highlight-class {
+  color: var(--gold-highlight);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Barcode in Main Pass */
+.main-pass-barcode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+
+.barcode-graphic-vertical {
+  height: 20px;
+  width: 140px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-mid) 0px,
+    var(--gold-mid) 2px,
+    transparent 2px,
+    transparent 4px,
+    var(--gold-highlight) 4px,
+    var(--gold-highlight) 7px,
+    transparent 7px,
+    transparent 9px,
+    var(--gold-mid) 9px,
+    var(--gold-mid) 12px,
+    transparent 12px,
+    transparent 14px
+  );
+  opacity: 0.8;
+}
+
+.barcode-num {
+  font-family: var(--font-cinzel);
+  font-size: 0.64rem;
+  letter-spacing: 2px;
+  color: var(--gold-mid);
   opacity: 0.85;
 }
 
-/* Details Box */
-.card-details-box {
-  background: rgba(7, 10, 20, 0.7);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 16px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.detail-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.detail-icon {
-  font-size: 1.2rem;
-  line-height: 1.2;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.detail-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.detail-label {
-  font-size: 0.74rem;
-  color: var(--gold-mid);
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  opacity: 0.9;
-}
-
-.detail-value {
-  font-size: 0.88rem;
-  color: #ffffff;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
 /* ==========================================================================
-   PERFORATION TEAR STRIP (THE CUTTING LINE)
+   PERFORATED TEAR TRACK & INTERACTIVE SWIPE SLIDER
    ========================================================================== */
 
-.tear-strip {
+.perforated-track {
   position: relative;
   width: 100%;
-  height: 28px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: rgba(5, 9, 20, 0.85);
+  border-top: 1px dashed rgba(212, 175, 55, 0.4);
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
   z-index: 5;
 }
 
-/* Outer circular notches on the left and right */
+/* Round Notches on Left and Right */
 .notch {
   position: absolute;
   width: 24px;
   height: 24px;
   background-color: var(--bg-dark);
   border-radius: 50%;
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
   z-index: 6;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
 }
 
 .notch-right {
   right: -13px;
-  border-left: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-left: 1.5px solid rgba(212, 175, 55, 0.5);
 }
 
 .notch-left {
   left: -13px;
-  border-right: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-right: 1.5px solid rgba(212, 175, 55, 0.5);
 }
 
-.dashed-line {
-  width: calc(100% - 36px);
-  height: 0;
-  border-top: 2px dashed rgba(212, 175, 55, 0.55);
+/* The Draggable Tear Slider Track */
+.tear-slider-container {
   position: relative;
+  width: calc(100% - 32px);
+  height: 42px;
+  background: rgba(14, 21, 44, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+  cursor: grab;
+  touch-action: pan-y;
 }
 
-.scissors-icon {
+.tear-slider-container:active {
+  cursor: grabbing;
+}
+
+/* Dashed middle line inside track */
+.tear-dashed-line {
   position: absolute;
-  background: var(--card-bg-solid);
-  padding: 0 10px;
-  color: var(--gold-light);
-  font-size: 1rem;
-  animation: scissorHop 2s ease-in-out infinite;
+  width: 100%;
+  height: 0;
+  border-top: 2px dashed rgba(212, 175, 55, 0.3);
+  pointer-events: none;
+}
+
+/* Rip Progress Fill (Jagged Golden Glow) */
+.tear-rip-fill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.15) 100%);
+  border-left: 2px solid var(--gold-highlight);
+  pointer-events: none;
+  transition: width 0.05s linear;
+}
+
+/* Instruction Label */
+.tear-instruction {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-@keyframes scissorHop {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2) rotate(-8deg); }
+.instruction-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-highlight);
+  letter-spacing: 0.2px;
 }
 
-/* Bottom Stub Content */
-.stub-info {
+.instruction-arrow {
+  font-size: 1.1rem;
+  color: var(--gold-mid);
+  animation: arrowSwipeRTL 1.4s infinite ease-in-out;
+}
+
+@keyframes arrowSwipeRTL {
+  0% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(-8px); opacity: 1; }
+  100% { transform: translateX(-16px); opacity: 0.2; }
+}
+
+/* The Draggable Scissors Handle */
+.tear-handle {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  width: 44px;
+  height: 38px;
+  background: linear-gradient(135deg, #fff6c7 0%, #d4af37 50%, #aa771c 100%);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 16px rgba(212, 175, 55, 0.45);
+  cursor: grab;
+  z-index: 8;
+  transition: transform 0.05s linear;
+}
+
+.tear-handle:active {
+  cursor: grabbing;
+  transform: scale(1.06);
+}
+
+.tear-handle .scissors-icon {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+  animation: snipBounce 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes snipBounce {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.15) rotate(15deg); }
+}
+
+/* ==========================================================================
+   THE TEAR-OFF STUB (ספח כרטיס)
+   ========================================================================== */
+
+.pass-stub {
+  position: relative;
+  padding: 14px;
+  background: rgba(5, 8, 18, 0.95);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s ease, filter 0.7s ease;
+}
+
+.stub-inner-border {
+  position: relative;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 12px;
+  padding: 14px 12px;
   text-align: center;
-  margin-bottom: 18px;
+}
+
+/* Stub Corner Flourishes */
+.ornament-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--gold-mid);
+  opacity: 0.6;
+}
+
+.st-tr { top: 4px; right: 4px; border-top: 1.5px solid var(--gold-mid); border-right: 1.5px solid var(--gold-mid); }
+.st-tl { top: 4px; left: 4px; border-top: 1.5px solid var(--gold-mid); border-left: 1.5px solid var(--gold-mid); }
+.st-br { bottom: 4px; right: 4px; border-bottom: 1.5px solid var(--gold-mid); border-right: 1.5px solid var(--gold-mid); }
+.st-bl { bottom: 4px; left: 4px; border-bottom: 1.5px solid var(--gold-mid); border-left: 1.5px solid var(--gold-mid); }
+
+.stub-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stub-badge {
+  font-family: var(--font-cinzel);
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-mid);
+  color: var(--gold-highlight);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.stub-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stub-heart-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.stub-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+}
+
+.stub-heart {
+  font-size: 0.75rem;
 }
 
 .stub-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #cbd5e1;
-  margin-bottom: 12px;
-  font-weight: 400;
-  line-height: 1.4;
+  margin-bottom: 10px;
 }
 
-.barcode-container {
+.stub-barcode-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  opacity: 0.75;
+  gap: 4px;
 }
 
-.barcode-lines {
-  width: 180px;
+.barcode-graphic-horizontal {
+  width: 170px;
   height: 22px;
   background: repeating-linear-gradient(
     90deg,
     var(--gold-mid) 0px,
     var(--gold-mid) 2px,
     transparent 2px,
-    transparent 5px,
-    var(--gold-light) 5px,
-    var(--gold-light) 8px,
-    transparent 8px,
+    transparent 4px,
+    var(--gold-highlight) 4px,
+    var(--gold-highlight) 7px,
+    transparent 7px,
     transparent 10px,
     var(--gold-mid) 10px,
     var(--gold-mid) 14px,
@@ -556,257 +751,49 @@ body {
     transparent 16px
   );
   border-radius: 2px;
+  opacity: 0.85;
 }
 
-.barcode-text {
+.barcode-digits {
   font-family: var(--font-cinzel);
   font-size: 0.58rem;
   letter-spacing: 2px;
   color: var(--gold-mid);
 }
 
-/* Primary Action Button (Golden VIP Button) */
-.luxury-gold-btn {
-  position: relative;
-  width: 100%;
-  padding: 15px 16px;
-  border: none;
-  background: linear-gradient(135deg, #fff2a3 0%, #d4af37 40%, #b8861d 80%, #90620e 100%);
-  border-radius: 14px;
-  cursor: pointer;
-  box-shadow: 
-    0 10px 25px rgba(212, 175, 55, 0.35),
-    0 4px 12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
-  -webkit-appearance: none;
-}
-
-.luxury-gold-btn:active {
-  transform: scale(0.97);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
-}
-
-.luxury-gold-btn .btn-text {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: #1e1302;
-  font-size: 0.92rem;
-  font-weight: 800;
-  letter-spacing: 0.1px;
-  white-space: nowrap;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
-}
-
-.luxury-gold-btn .btn-icon {
-  font-size: 1.15rem;
-  animation: snipAction 1.2s ease-in-out infinite alternate;
-}
-
-@keyframes snipAction {
-  0% { transform: scale(1) rotate(0deg); }
-  100% { transform: scale(1.18) rotate(15deg); }
-}
-
-.luxury-gold-btn .btn-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.luxury-gold-btn:hover .btn-glow {
-  opacity: 1;
-}
-
-/* Mini version for modal */
-.luxury-gold-btn.mini {
-  padding: 13px 18px;
-  font-size: 0.9rem;
+.stub-tear-hint {
+  margin-top: 10px;
+  font-size: 0.74rem;
+  color: var(--gold-mid);
+  opacity: 0.8;
 }
 
 /* ==========================================================================
-   STEP 2: RIPPING / TEARING PHYSICAL ANIMATIONS
+   PHYSICAL TEAR COMPLETION ANIMATION
    ========================================================================== */
 
-.luxury-card.is-ripping {
+/* The Stub physically falls off & spins */
+.boarding-pass.is-torn .pass-stub {
+  transform: translateY(140px) rotate(8deg) scale(0.92);
+  opacity: 0;
+  filter: blur(3px);
   pointer-events: none;
 }
 
-/* Top half rips up & tilts */
-.luxury-card.is-ripping .card-top {
-  transform: translateY(-90px) rotate(-6deg) scale(0.96);
-  opacity: 0;
-  filter: blur(2px);
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease, filter 0.8s ease;
-}
-
-/* Bottom stub rips down & tilts opposite */
-.luxury-card.is-ripping .card-bottom {
-  transform: translateY(90px) rotate(6deg) scale(0.96);
-  opacity: 0;
-  filter: blur(2px);
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease, filter 0.8s ease;
-}
-
-/* Perforation tear effect */
-.luxury-card.is-ripping .tear-strip {
+.boarding-pass.is-torn .perforated-track {
   opacity: 0;
   transform: scaleY(0);
   transition: all 0.3s ease;
 }
 
-/* ==========================================================================
-   STEP 2 TRANSITION: SUCCESS REVEAL MODAL
-   ========================================================================== */
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(4, 6, 14, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.modal-backdrop.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal-card {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  background: linear-gradient(165deg, rgba(17, 24, 45, 0.96) 0%, rgba(9, 13, 27, 0.98) 100%);
-  border: 1.5px solid rgba(212, 175, 55, 0.5);
-  border-radius: 28px;
-  padding: 32px 24px;
-  text-align: center;
-  box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.8),
-    0 0 50px rgba(212, 175, 55, 0.25);
-  transform: scale(0.85) translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  overflow: hidden;
-}
-
-.modal-backdrop.active .modal-card {
-  transform: scale(1) translateY(0);
-}
-
-.modal-glow {
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.modal-icon-ring {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 20px auto;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(111, 78, 19, 0.3));
-  border: 1.5px solid var(--gold-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-}
-
-.modal-icon {
-  font-size: 2.2rem;
-  animation: pulseHeart 1.8s ease-in-out infinite;
-}
-
-@keyframes pulseHeart {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-
-.modal-title {
-  font-family: var(--font-serif);
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: var(--gold-light);
-  margin-bottom: 14px;
-  line-height: 1.25;
-  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
-}
-
-.modal-message {
-  font-size: 1.05rem;
-  color: #e2e8f0;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  font-weight: 400;
-}
-
-.modal-pulse-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
-  margin: 0 auto 24px auto;
-}
-
-.modal-action-btn {
-  width: 100%;
-  padding: 16px 20px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(135deg, #fff0a8 0%, #d4af37 50%, #aa771c 100%);
-  color: #1a1000;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-  transition: transform 0.2s ease;
-}
-
-.modal-action-btn:active {
-  transform: scale(0.97);
-}
-
-.modal-action-btn .arrow-icon {
-  font-size: 1.2rem;
-  transition: transform 0.2s ease;
-}
-
-.modal-action-btn:active .arrow-icon {
-  transform: translateX(-4px);
+.boarding-pass.is-torn .pass-main {
+  transform: translateY(-20px) scale(1.02);
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
-   STEP 3: 25-MINUTE ZEN SPA & AMBIENCE SCREEN
+   STEP 2: 25-MINUTE ZEN SPA & AMBIENCE SCREEN
    ========================================================================== */
 
 .spa-container {
@@ -818,7 +805,6 @@ body {
   z-index: 3;
 }
 
-/* Pulsating Breathing Aura behind timer */
 .spa-breathing-aura {
   position: absolute;
   width: 320px;
@@ -840,17 +826,10 @@ body {
 }
 
 @keyframes breathingPulse {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(0.85);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.25);
-    opacity: 0.95;
-  }
+  0%, 100% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.25); opacity: 0.95; }
 }
 
-/* Floating Flower Petals / Gentle Spa Accents */
 .floating-petals {
   position: absolute;
   inset: 0;
@@ -859,10 +838,9 @@ body {
   z-index: 2;
 }
 
-/* Spa Header */
 .spa-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .spa-tag {
@@ -909,13 +887,13 @@ body {
 .timer-section {
   position: relative;
   z-index: 3;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .circle-timer-wrap {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 270px;
+  height: 270px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -924,7 +902,7 @@ body {
 .timer-svg {
   width: 100%;
   height: 100%;
-  transform: rotate(-90deg); /* Start progress from the top */
+  transform: rotate(-90deg);
 }
 
 .timer-bg-outer {
@@ -945,13 +923,11 @@ body {
   stroke: url(#gold-gradient);
   stroke-width: 10;
   stroke-linecap: round;
-  /* Circumference for radius 132 = 2 * PI * 132 ≈ 829.38 */
   stroke-dasharray: 829.38;
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 0.8s linear;
 }
 
-/* Center Content */
 .timer-inner-content {
   position: absolute;
   display: flex;
@@ -964,17 +940,11 @@ body {
 .timer-decor-flower {
   font-size: 1.6rem;
   margin-bottom: 4px;
-  animation: gentleSway 4s ease-in-out infinite alternate;
-}
-
-@keyframes gentleSway {
-  0% { transform: rotate(-5deg); }
-  100% { transform: rotate(5deg); }
 }
 
 .timer-display {
   font-family: var(--font-cinzel);
-  font-size: 3.4rem;
+  font-size: 3.3rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 2px;
@@ -993,15 +963,15 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* Dynamic Romantic Message Display */
+/* Dynamic Loving Message Box */
 .romantic-message-container {
   position: relative;
   z-index: 3;
   width: 100%;
   max-width: 350px;
-  min-height: 78px;
-  padding: 14px 24px;
-  background: rgba(18, 25, 48, 0.75);
+  min-height: 76px;
+  padding: 14px 22px;
+  background: rgba(18, 25, 48, 0.78);
   border: 1px solid rgba(212, 175, 55, 0.22);
   border-radius: 18px;
   backdrop-filter: blur(16px);
@@ -1009,7 +979,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -1041,7 +1011,7 @@ body {
   transform: translateY(6px);
 }
 
-/* Spa Controls Panel */
+/* Controls */
 .spa-controls-panel {
   position: relative;
   z-index: 3;
@@ -1082,10 +1052,10 @@ body {
 .control-btn .control-label {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--gold-light);
+  color: var(--gold-highlight);
 }
 
-/* Equalizer Visualizer for Music Toggle */
+/* Equalizer Bars */
 .equalizer-bars {
   display: flex;
   align-items: flex-end;
@@ -1114,7 +1084,7 @@ body {
   100% { height: 18px; }
 }
 
-/* Demo / Helper bar for quick testing */
+/* Demo helpers */
 .demo-actions {
   display: flex;
   align-items: center;
@@ -1136,8 +1106,8 @@ body {
   transition: color 0.2s;
 }
 
-.demo-link:hover, .demo-link:active {
-  color: var(--gold-light);
+.demo-link:active {
+  color: var(--gold-highlight);
 }
 
 .demo-divider {
@@ -1146,35 +1116,69 @@ body {
 }
 
 /* ==========================================================================
-   STEP 4: TIME UP / ROMANTIC FINALE CELEBRATION
+   STEP 3: TIME UP / MYSTERY FINALE MODAL
    ========================================================================== */
 
-.modal-backdrop.finale-theme {
-  background: rgba(3, 5, 12, 0.92);
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 5, 12, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .finale-card {
-  max-width: 380px;
-  padding: 36px 26px;
-  background: linear-gradient(165deg, rgba(24, 18, 42, 0.98) 0%, rgba(10, 11, 26, 0.99) 100%);
-  border: 2px solid var(--gold-mid);
+  position: relative;
+  width: 100%;
+  max-width: 376px;
+  background: linear-gradient(165deg, rgba(22, 17, 38, 0.98) 0%, rgba(9, 11, 24, 0.99) 100%);
+  border: 1.5px solid var(--gold-mid);
+  border-radius: 26px;
+  padding: 30px 22px;
+  text-align: center;
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.9),
-    0 0 60px rgba(212, 175, 55, 0.45);
+    0 0 60px rgba(212, 175, 55, 0.4);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.modal-backdrop.active .finale-card {
+  transform: scale(1) translateY(0);
 }
 
 .gold-flare {
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.5) 0%, rgba(229, 152, 155, 0.25) 50%, transparent 70%);
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .heart-crown {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
-.heart-crown .large-heart {
-  font-size: 3.2rem;
+.large-heart {
+  font-size: 3rem;
   display: inline-block;
   animation: heartThrob 1.4s ease-in-out infinite;
 }
@@ -1188,43 +1192,107 @@ body {
 
 .finale-title {
   font-family: var(--font-serif);
-  font-size: 2.1rem;
+  font-size: 1.85rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #fff2a3 40%, #d4af37 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff6c7 40%, #d4af37 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 18px;
-  line-height: 1.2;
+  margin-bottom: 14px;
+  line-height: 1.25;
 }
 
 .finale-quote-box {
   background: rgba(10, 14, 30, 0.7);
   border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 18px;
-  padding: 18px 16px;
-  margin-bottom: 24px;
+  border-radius: 16px;
+  padding: 16px 14px;
+  margin-bottom: 18px;
 }
 
 .finale-main-msg {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: #fff2a3;
-  margin-bottom: 10px;
+  color: #fff6c7;
+  margin-bottom: 8px;
   line-height: 1.35;
 }
 
 .finale-sub-msg {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #e2e8f0;
-  line-height: 1.55;
+  line-height: 1.5;
   font-weight: 400;
+}
+
+/* Secret Reveal Box */
+.reveal-secret-box {
+  margin-bottom: 18px;
+}
+
+.mystery-reveal-btn {
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--gold-mid);
+  color: var(--gold-highlight);
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.mystery-reveal-btn:active {
+  transform: scale(0.97);
+  background: rgba(212, 175, 55, 0.25);
+}
+
+.secret-card {
+  margin-top: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(229, 152, 155, 0.2));
+  border: 1px solid var(--gold-highlight);
+  border-radius: 14px;
+  animation: revealSecret 0.5s ease;
+}
+
+.secret-card.hidden {
+  display: none;
+}
+
+@keyframes revealSecret {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.secret-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
 .finale-buttons {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+}
+
+.luxury-gold-btn.mini {
+  padding: 13px 16px;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #fff6c7 0%, #d4af37 40%, #b8861d 80%, #90620e 100%);
+  color: #1e1302;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+}
+
+.luxury-gold-btn.mini:active {
+  transform: scale(0.97);
 }
 
 .secondary-btn {
@@ -1242,27 +1310,23 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Footer note */
+/* Footer */
 .app-footer {
   margin-top: auto;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 8px;
   z-index: 2;
 }
 
 .footer-heart {
   font-size: 0.74rem;
-  color: rgba(212, 175, 55, 0.6);
-  letter-spacing: 0.5px;
+  color: rgba(212, 175, 55, 0.65);
+  letter-spacing: 0.4px;
 }
 
-/* ==========================================================================
-   IPHONE & SMALL SCREEN ADJUSTMENTS (< 380px)
-   ========================================================================== */
+/* Responsive adjustments */
 @media (max-width: 375px) {
-  .gold-gradient-text { font-size: 1.85rem; }
-  .sub-gold-text { font-size: 1.1rem; }
+  .main-title { font-size: 1.65rem; }
   .circle-timer-wrap { width: 250px; height: 250px; }
-  .timer-display { font-size: 2.9rem; }
-  .card-section { padding: 18px 16px; }
+  .timer-display { font-size: 2.85rem; }
 }

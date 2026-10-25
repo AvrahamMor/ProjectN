@@ -1,7 +1,7 @@
 /**
  * Web Audio API Engine
- * Procedural Sound Effects & Continuous Spa Ambient Drone Synthesis
- * Zero external audio files needed • 100% reliable on iOS Safari & Mobile
+ * Interactive Paper Tearing Physics & Continuous 432Hz Meditative Spa Drone
+ * 100% Procedural • Mobile/Safari iOS Unlocked • Zero External Audio Assets
  */
 
 class SpaAudioEngine {
@@ -12,7 +12,7 @@ class SpaAudioEngine {
     this.ambientOscillators = [];
     this.lfo = null;
     this.bowlInterval = null;
-    this.initialized = false;
+    this.lastCrackleTime = 0;
   }
 
   // Ensure AudioContext is initialized and unlocked upon user touch/click
@@ -24,11 +24,54 @@ class SpaAudioEngine {
     if (this.ctx.state === 'suspended') {
       this.ctx.resume();
     }
-    this.initialized = true;
   }
 
   /**
-   * Synthesize a realistic paper tear / coupon rip sound effect
+   * Micro-crackle while finger is actively dragging/tearing along perforation
+   */
+  playDragCrackle(progressFraction = 0.5) {
+    this.initContext();
+    const now = performance.now();
+    // Throttle crackles slightly for organic paper sound
+    if (now - this.lastCrackleTime < 65) return;
+    this.lastCrackleTime = now;
+
+    if (!this.ctx) return;
+    const ctx = this.ctx;
+    const audioNow = ctx.currentTime;
+
+    const duration = 0.08;
+    const bufferSize = Math.floor(ctx.sampleRate * duration);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      const t = i / bufferSize;
+      const noise = (Math.random() * 2 - 1);
+      data[i] = noise * (1 - t) * (Math.random() > 0.4 ? 1 : 0.2);
+    }
+
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1200 + progressFraction * 800, audioNow);
+    filter.Q.setValueAtTime(3.0, audioNow);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.25, audioNow);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioNow + duration);
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    source.start(audioNow);
+  }
+
+  /**
+   * Synthesize full realistic paper tear / coupon rip snap
    */
   playTearSound() {
     this.initContext();
@@ -36,32 +79,29 @@ class SpaAudioEngine {
     const now = ctx.currentTime;
 
     // Buffer of shaped white noise with high-frequency crackles for paper ripping
-    const duration = 0.45;
-    const bufferSize = ctx.sampleRate * duration;
+    const duration = 0.42;
+    const bufferSize = Math.floor(ctx.sampleRate * duration);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
 
     for (let i = 0; i < bufferSize; i++) {
       const t = i / ctx.sampleRate;
-      // White noise with micro random impulses (fibers ripping)
-      const crackle = Math.random() > 0.88 ? (Math.random() * 2 - 1) * 1.5 : 0;
-      data[i] = ((Math.random() * 2 - 1) * 0.7 + crackle) * Math.exp(-t * 3.5);
+      const crackle = Math.random() > 0.82 ? (Math.random() * 2 - 1) * 1.6 : 0;
+      data[i] = ((Math.random() * 2 - 1) * 0.75 + crackle) * Math.exp(-t * 3.8);
     }
 
     const noiseSource = ctx.createBufferSource();
     noiseSource.buffer = buffer;
 
-    // Bandpass filter to isolate crisp paper rustle frequency
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(1400, now);
-    filter.frequency.exponentialRampToValueAtTime(700, now + duration);
-    filter.Q.setValueAtTime(2.2, now);
+    filter.frequency.setValueAtTime(1600, now);
+    filter.frequency.exponentialRampToValueAtTime(600, now + duration);
+    filter.Q.setValueAtTime(2.5, now);
 
-    // Gain envelope with rapid micro-fluctuations
     const gainNode = ctx.createGain();
     gainNode.gain.setValueAtTime(0.01, now);
-    gainNode.gain.linearRampToValueAtTime(0.7, now + 0.05);
+    gainNode.gain.linearRampToValueAtTime(0.8, now + 0.04);
     gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
     noiseSource.connect(filter);
@@ -70,15 +110,16 @@ class SpaAudioEngine {
 
     noiseSource.start(now);
 
-    // Gentle magical harmonic pop/sparkle at the end of tear
+    // Magical crystal chimes on successful tear
     setTimeout(() => {
-      this.playChime(659.25, 0.25); // E5
-      setTimeout(() => this.playChime(880, 0.3), 80); // A5
-    }, 180);
+      this.playChime(659.25, 0.4, 0.3); // E5
+      setTimeout(() => this.playChime(880, 0.5, 0.35), 90); // A5
+      setTimeout(() => this.playChime(1056, 0.8, 0.25), 180); // C6
+    }, 120);
   }
 
   /**
-   * Synthesize a crystal bell / singing chime note
+   * Synthesize a crystal chime note
    */
   playChime(freq = 528, duration = 1.6, volume = 0.3) {
     this.initContext();
@@ -92,7 +133,6 @@ class SpaAudioEngine {
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, now);
 
-    // Subtle overtone (bell harmonic 2.76x)
     oscHarmonic.type = 'sine';
     oscHarmonic.frequency.setValueAtTime(freq * 2.76, now);
 
@@ -110,7 +150,7 @@ class SpaAudioEngine {
   }
 
   /**
-   * Synthesize a deep, calming Tibetan singing bowl tone
+   * Synthesize a deep Tibetan singing bowl
    */
   playSingingBowl(baseFreq = 216, duration = 6.0, volume = 0.35) {
     if (!this.ctx) return;
@@ -131,7 +171,6 @@ class SpaAudioEngine {
 
       osc.type = 'sine';
       osc.frequency.setValueAtTime(baseFreq * h, now);
-      // Subtle pitch vibrato for organic bowl resonance
       osc.frequency.linearRampToValueAtTime(baseFreq * h * 0.998, now + duration);
 
       hGain.gain.setValueAtTime(gains[index], now);
@@ -145,8 +184,7 @@ class SpaAudioEngine {
   }
 
   /**
-   * Start procedural continuous relaxing spa ambient music
-   * (432Hz harmonic chord drone + breathing LFO + periodic singing bowl)
+   * Continuous 432Hz ambient spa drone music
    */
   startSpaMusic() {
     this.initContext();
@@ -155,32 +193,21 @@ class SpaAudioEngine {
     const ctx = this.ctx;
     const now = ctx.currentTime;
 
-    // Master ambient gain
     this.ambientGain = ctx.createGain();
     this.ambientGain.gain.setValueAtTime(0.001, now);
-    this.ambientGain.gain.linearRampToValueAtTime(0.35, now + 3.0); // Smooth 3-second fade in
+    this.ambientGain.gain.linearRampToValueAtTime(0.35, now + 3.0);
     this.ambientGain.connect(ctx.destination);
 
-    // Calm 432Hz & 528Hz Solfeggio soothing pad chord (F, A, C, E, G soothing warm spread)
-    const chordFrequencies = [
-      108.0,  // Deep root foundation (A2 approx)
-      162.0,  // Soft fifth
-      216.0,  // 432 / 2 (A3)
-      270.0,  // Warm major third
-      324.0,  // High harmonic
-      432.0   // 432 Hz Golden Healing Tone
-    ];
+    const chordFrequencies = [108.0, 162.0, 216.0, 270.0, 324.0, 432.0];
 
-    // Filter to keep sound warm, soft and gentle like a warm bath
     const ambientFilter = ctx.createBiquadFilter();
     ambientFilter.type = 'lowpass';
     ambientFilter.frequency.setValueAtTime(450, now);
 
-    // LFO to slowly modulate filter cutoff (breathing wave sensation: 12 seconds per breath)
     this.lfo = ctx.createOscillator();
     const lfoGain = ctx.createGain();
     this.lfo.type = 'sine';
-    this.lfo.frequency.setValueAtTime(0.08, now); // ~12.5 seconds cycle
+    this.lfo.frequency.setValueAtTime(0.08, now); // ~12.5s wave
     lfoGain.gain.setValueAtTime(180, now);
 
     this.lfo.connect(ambientFilter.frequency);
@@ -192,10 +219,7 @@ class SpaAudioEngine {
       const osc = ctx.createOscillator();
       const oscGain = ctx.createGain();
 
-      // Alternate sine and gentle triangle for warmth
       osc.type = i % 2 === 0 ? 'sine' : 'triangle';
-      
-      // Slight gentle detune for lush rich stereo texture
       const detune = (Math.random() - 0.5) * 6;
       osc.frequency.setValueAtTime(freq, now);
       osc.detune.setValueAtTime(detune, now);
@@ -212,14 +236,12 @@ class SpaAudioEngine {
 
     ambientFilter.connect(this.ambientGain);
 
-    // Initial peaceful bowl note
     setTimeout(() => {
       if (this.isMusicPlaying) {
         this.playSingingBowl(216, 7.0, 0.28);
       }
     }, 1200);
 
-    // Periodic gentle singing bowl / wind bell note every 16 seconds
     this.bowlInterval = setInterval(() => {
       if (this.isMusicPlaying) {
         const bowlNotes = [216, 270, 324, 432];
@@ -231,9 +253,6 @@ class SpaAudioEngine {
     this.isMusicPlaying = true;
   }
 
-  /**
-   * Stop spa ambient music with smooth gentle fade-out
-   */
   stopSpaMusic() {
     if (!this.isMusicPlaying || !this.ctx) return;
 
@@ -263,9 +282,6 @@ class SpaAudioEngine {
     this.isMusicPlaying = false;
   }
 
-  /**
-   * Toggle music status
-   */
   toggleSpaMusic() {
     if (this.isMusicPlaying) {
       this.stopSpaMusic();
@@ -276,9 +292,6 @@ class SpaAudioEngine {
     }
   }
 
-  /**
-   * Celebration fanfare / chime chord for timer finish
-   */
   playTimerCompleteSound() {
     this.initContext();
     this.playSingingBowl(216, 8.0, 0.4);
@@ -298,5 +311,4 @@ class SpaAudioEngine {
   }
 }
 
-// Global audio engine singleton
 window.spaAudio = new SpaAudioEngine();
