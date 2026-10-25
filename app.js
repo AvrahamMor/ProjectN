@@ -1,6 +1,6 @@
 /**
  * Luxury Boarding Pass & Spa Experience
- * Touch-First Draggable Tear Gesture • Mystery 1/6 Theme • Auto Spa Launch
+ * Touch-First Draggable Tear Gesture • Mystery 1/6 Theme • Authentic YouTube Spa Music
  */
 
 (function () {
@@ -50,12 +50,14 @@
   const demoFastForwardBtn = document.getElementById('demo-fast-forward-btn');
   const addFiveMinBtn = document.getElementById('add-five-min-btn');
 
+  // YouTube Spa Player Elements
+  const ytSpaPlayer = document.getElementById('yt-spa-player');
+  let isMusicActive = true;
+
   // Finale Elements
   const finaleModal = document.getElementById('finale-modal');
   const restartSpaBtn = document.getElementById('restart-spa-btn');
   const closeFinaleBtn = document.getElementById('close-finale-btn');
-  const revealAnniversaryBtn = document.getElementById('reveal-anniversary-btn');
-  const secretAnniversaryCard = document.getElementById('secret-anniversary-card');
 
   // SVG Ring Circumference (radius = 132)
   const RING_CIRCUMFERENCE = 2 * Math.PI * 132; // ~829.38
@@ -127,7 +129,51 @@
   }
 
   // ==========================================================================
-  // 2. INTERACTIVE SWIPE-TO-TEAR GESTURE (NO BUTTON!)
+  // 2. YOUTUBE SPA MUSIC CONTROLLER
+  // ==========================================================================
+
+  function sendYtCommand(func, args = '') {
+    if (!ytSpaPlayer || !ytSpaPlayer.contentWindow) return;
+    ytSpaPlayer.contentWindow.postMessage(JSON.stringify({
+      event: 'command',
+      func: func,
+      args: args
+    }), '*');
+  }
+
+  function playSpaMusic() {
+    isMusicActive = true;
+    sendYtCommand('playVideo');
+    updateMusicUI(true);
+  }
+
+  function pauseSpaMusic() {
+    isMusicActive = false;
+    sendYtCommand('pauseVideo');
+    updateMusicUI(false);
+  }
+
+  function toggleMusic() {
+    if (isMusicActive) {
+      pauseSpaMusic();
+    } else {
+      playSpaMusic();
+    }
+  }
+
+  function updateMusicUI(isPlaying) {
+    if (!toggleMusicBtn || !musicToggleLabel) return;
+    if (isPlaying) {
+      toggleMusicBtn.classList.add('active');
+      musicToggleLabel.textContent = 'מוזיקה פעילה';
+    } else {
+      toggleMusicBtn.classList.remove('active');
+      musicToggleLabel.textContent = 'מוזיקה מושתקת';
+    }
+  }
+
+  // ==========================================================================
+  // 3. INTERACTIVE SWIPE-TO-TEAR GESTURE
   // ==========================================================================
 
   let isDragging = false;
@@ -152,12 +198,10 @@
       const handleRect = tearHandle.getBoundingClientRect();
       maxDragDistance = rect.width - handleRect.width - 4;
 
-      // In RTL, starting from the right side of the container
       startX = getPointerX(e);
       tearHandle.style.transition = 'none';
       if (tearRipFill) tearRipFill.style.transition = 'none';
 
-      // Unlock Web Audio on first user touch
       if (window.spaAudio) {
         window.spaAudio.initContext();
       }
@@ -167,7 +211,6 @@
       if (!isDragging || isTorn) return;
 
       const currentX = getPointerX(e);
-      // Moving finger towards left increases drag in RTL:
       let dragDelta = startX - currentX;
       if (dragDelta < 0) dragDelta = 0;
       if (dragDelta > maxDragDistance) dragDelta = maxDragDistance;
@@ -175,25 +218,20 @@
       currentDragX = dragDelta;
       const progressFraction = currentDragX / maxDragDistance;
 
-      // Move the scissors handle along the track
       tearHandle.style.transform = `translateX(-${currentDragX}px) scale(1.06)`;
 
-      // Expand the rip fill behind scissors
       if (tearRipFill) {
         tearRipFill.style.width = `${(progressFraction * 100).toFixed(1)}%`;
       }
 
-      // Fade out prompt text
       if (tearInstruction) {
         tearInstruction.style.opacity = Math.max(0, 1 - progressFraction * 1.5);
       }
 
-      // Real-time paper tearing crackle sounds
       if (window.spaAudio && progressFraction > 0.05) {
         window.spaAudio.playDragCrackle(progressFraction);
       }
 
-      // Micro haptic pulse on mobile
       if ('vibrate' in navigator && Math.random() > 0.7) {
         try { navigator.vibrate(8); } catch (err) {}
       }
@@ -205,11 +243,9 @@
 
       const progressFraction = currentDragX / maxDragDistance;
 
-      // Threshold: if dragged > 75%, trigger tear completion!
       if (progressFraction >= 0.75) {
         completeTearAction();
       } else {
-        // Reset back smoothly
         tearHandle.style.transition = 'transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
         tearHandle.style.transform = 'translateX(0px)';
         if (tearRipFill) {
@@ -228,7 +264,7 @@
     window.addEventListener('touchmove', onDragMove, { passive: true });
     window.addEventListener('touchend', onDragEnd, { passive: true });
 
-    // Pointer/Mouse events for desktop
+    // Pointer/Mouse events
     tearSliderContainer.addEventListener('mousedown', onDragStart);
     window.addEventListener('mousemove', onDragMove);
     window.addEventListener('mouseup', onDragEnd);
@@ -238,40 +274,33 @@
     if (isTorn) return;
     isTorn = true;
 
-    // Snap handle to the end
     tearHandle.style.transition = 'transform 0.15s ease';
     tearHandle.style.transform = `translateX(-${maxDragDistance}px)`;
     if (tearRipFill) {
       tearRipFill.style.width = '100%';
     }
 
-    // Haptic feedback
     if ('vibrate' in navigator) {
       try { navigator.vibrate([40, 80, 120]); } catch (e) {}
     }
 
-    // Play procedural snap tear sound effect
     if (window.spaAudio) {
       window.spaAudio.playTearSound();
     }
 
-    // Apply physical tear class: the stub detaches and falls away
     boardingPass.classList.add('is-torn');
-
-    // Confetti fireworks explosion
     fireConfetti();
 
-    // Smoothly and automatically launch the Spa mode after 1.2 seconds!
+    // Launch Spa mode automatically
     setTimeout(() => {
       startSpaExperience();
-    }, 1200);
+    }, 1100);
   }
 
   function fireConfetti() {
     if (typeof confetti === 'function') {
       const goldPalette = ['#D4AF37', '#FFF6C7', '#AA771C', '#E5989B', '#FFFFFF'];
 
-      // Burst 1: Center
       confetti({
         particleCount: 75,
         spread: 85,
@@ -280,7 +309,6 @@
         startVelocity: 38
       });
 
-      // Burst 2: Side Cannons
       setTimeout(() => {
         confetti({
           particleCount: 45,
@@ -301,7 +329,7 @@
   }
 
   // ==========================================================================
-  // 3. LAUNCH SPA SANCTUARY & START 25-MIN TIMER AUTOMATICALLY
+  // 4. LAUNCH SPA SANCTUARY & START 25-MIN TIMER AUTOMATICALLY
   // ==========================================================================
 
   function startSpaExperience() {
@@ -313,11 +341,8 @@
         spaView.classList.add('active');
       }, 40);
 
-      // Start relaxing 432Hz ambient spa music automatically
-      if (window.spaAudio) {
-        window.spaAudio.startSpaMusic();
-        updateMusicUI(true);
-      }
+      // Start YouTube relaxing spa music
+      playSpaMusic();
 
       // Start 25:00 countdown timer automatically
       startTimer();
@@ -326,7 +351,7 @@
   }
 
   // ==========================================================================
-  // 4. TIMER ENGINE & PROGRESS RING
+  // 5. TIMER ENGINE & PROGRESS RING
   // ==========================================================================
 
   function formatTime(seconds) {
@@ -373,8 +398,10 @@
   function toggleTimer() {
     if (isTimerRunning) {
       pauseTimer();
+      pauseSpaMusic();
     } else {
       startTimer();
+      playSpaMusic();
     }
   }
 
@@ -394,27 +421,6 @@
   }
 
   // ==========================================================================
-  // 5. AMBIENT MUSIC CONTROLS
-  // ==========================================================================
-
-  function toggleMusic() {
-    if (!window.spaAudio) return;
-    const isPlaying = window.spaAudio.toggleSpaMusic();
-    updateMusicUI(isPlaying);
-  }
-
-  function updateMusicUI(isPlaying) {
-    if (!toggleMusicBtn || !musicToggleLabel) return;
-    if (isPlaying) {
-      toggleMusicBtn.classList.add('active');
-      musicToggleLabel.textContent = 'מוזיקת ספא פעילה';
-    } else {
-      toggleMusicBtn.classList.remove('active');
-      musicToggleLabel.textContent = 'מוזיקה מושתקת';
-    }
-  }
-
-  // ==========================================================================
   // 6. DYNAMIC ROMANTIC MESSAGES ROTATION
   // ==========================================================================
 
@@ -422,7 +428,6 @@
     if (messageInterval) clearInterval(messageInterval);
     updateRomanticMessage();
 
-    // Rotate every 12 seconds with gentle fade
     messageInterval = setInterval(() => {
       currentMessageIndex = (currentMessageIndex + 1) % ROMANTIC_MESSAGES.length;
       updateRomanticMessage();
@@ -439,11 +444,12 @@
   }
 
   // ==========================================================================
-  // 7. STEP 3: FINALE CELEBRATION (MYSTERY & SECRET REVEAL)
+  // 7. STEP 3: FINALE CELEBRATION (PURE 1/6 MYSTERY - NO SECRET BUTTON)
   // ==========================================================================
 
   function finishSpaSession() {
     pauseTimer();
+    pauseSpaMusic();
 
     if (window.spaAudio) {
       window.spaAudio.playTimerCompleteSound();
@@ -496,23 +502,39 @@
       toggleTimerBtn.addEventListener('click', toggleTimer);
     }
 
-    // 3. Music Toggle
+    // 3. YouTube Music Toggle
     if (toggleMusicBtn) {
       toggleMusicBtn.addEventListener('click', toggleMusic);
     }
 
-    // 4. Demo Fast Forward (10 seconds left)
+    // 4. Quick YouTube Spa Track Selector Buttons
+    const trackBtns = document.querySelectorAll('.track-btn');
+    trackBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        trackBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const vid = btn.getAttribute('data-vid');
+        if (ytSpaPlayer && vid) {
+          ytSpaPlayer.src = `https://www.youtube-nocookie.com/embed/${vid}?enablejsapi=1&autoplay=1&playsinline=1&rel=0&modestbranding=1`;
+          isMusicActive = true;
+          updateMusicUI(true);
+        }
+      });
+    });
+
+    // 5. Demo Fast Forward (10 seconds left)
     if (demoFastForwardBtn) {
       demoFastForwardBtn.addEventListener('click', () => {
         remainingSec = 10;
         updateTimerDisplay();
         if (!isTimerRunning) {
           startTimer();
+          playSpaMusic();
         }
       });
     }
 
-    // 5. Add 5 Minutes
+    // 6. Add 5 Minutes
     if (addFiveMinBtn) {
       addFiveMinBtn.addEventListener('click', () => {
         remainingSec += 300;
@@ -521,7 +543,7 @@
       });
     }
 
-    // 6. Restart Spa / Extra 5 minutes from Finale
+    // 7. Restart Spa / Extra 5 minutes from Finale
     if (restartSpaBtn) {
       restartSpaBtn.addEventListener('click', () => {
         if (finaleModal) finaleModal.classList.remove('active');
@@ -529,22 +551,13 @@
         totalDurationSec = 5 * 60;
         updateTimerDisplay();
         startTimer();
+        playSpaMusic();
       });
     }
 
     if (closeFinaleBtn) {
       closeFinaleBtn.addEventListener('click', () => {
         if (finaleModal) finaleModal.classList.remove('active');
-      });
-    }
-
-    // 7. Secret Reveal Button (Optional toggle in Finale modal)
-    if (revealAnniversaryBtn && secretAnniversaryCard) {
-      revealAnniversaryBtn.addEventListener('click', () => {
-        secretAnniversaryCard.classList.toggle('hidden');
-        if (!secretAnniversaryCard.classList.contains('hidden')) {
-          fireConfetti();
-        }
       });
     }
   }

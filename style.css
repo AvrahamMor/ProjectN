@@ -1225,52 +1225,105 @@ body {
   font-weight: 400;
 }
 
-/* Secret Reveal Box */
-.reveal-secret-box {
-  margin-bottom: 18px;
+/* YouTube Relaxing Spa Player Card */
+.youtube-player-card {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(12, 17, 36, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 18px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 3;
 }
 
-.mystery-reveal-btn {
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid var(--gold-mid);
+.youtube-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.yt-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.yt-icon {
+  font-size: 1rem;
+}
+
+.yt-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--gold-highlight);
+}
+
+.yt-badge {
+  font-family: var(--font-cinzel);
+  font-size: 0.62rem;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.youtube-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.youtube-iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Track selector buttons */
+.spa-track-selector {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.track-btn {
+  flex: 1;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.track-btn:active {
+  transform: scale(0.96);
+}
+
+.track-btn.active {
+  background: rgba(212, 175, 55, 0.22);
+  border-color: var(--gold-mid);
   color: var(--gold-highlight);
   font-weight: 700;
-  font-size: 0.88rem;
-  padding: 10px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  width: 100%;
-}
-
-.mystery-reveal-btn:active {
-  transform: scale(0.97);
-  background: rgba(212, 175, 55, 0.25);
-}
-
-.secret-card {
-  margin-top: 10px;
-  padding: 14px;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(229, 152, 155, 0.2));
-  border: 1px solid var(--gold-highlight);
-  border-radius: 14px;
-  animation: revealSecret 0.5s ease;
-}
-
-.secret-card.hidden {
-  display: none;
-}
-
-@keyframes revealSecret {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.secret-text {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  color: #ffffff;
-  line-height: 1.5;
 }
 
 .finale-buttons {
